@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SebaWeather</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0;24,400,1,0" />
+    <link rel="icon" href="./assets/images/favicon.ico">
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="hamburger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    
+    <nav class="favorites-container">
+        <h3>Favoritos</h3>
+        <div id="favorites-list"></div>
+    </nav>  
+    <div class="input-container">
+        <input type="text" placeholder="Buscar ciudad...">
+    </div>
+    <main class="hidden">
+        <div class="weather-header">
+            <p class="weather-city"></p>
+            <button id="fav-button" class="fav-btn">
+            </button>
+            <div class="weather-temperature">
+                <p class="weather-temperature-number"></p>
+                <span class="weather-temperature-degree">°C</span>
+            </div>
+            <p class="weather-current"></p>
+        </div>
+        <div class="hourly-forecast-container">
+            <div class="hourly-forecast">
+                <p class="hourly-forecast-time"></p>
+                <span class="hourly-forecast-icon icon filled"></span>
+                <p class="hourly-forecast-temperature"></p>
+            </div>
+            <div class="hourly-forecast">
+                <p class="hourly-forecast-time"></p>
+                <span class="hourly-forecast-icon icon filled"></span>
+                <p class="hourly-forecast-temperature"></p>
+            </div>
+            <div class="hourly-forecast">
+                <p class="hourly-forecast-time"></p>
+                <span class="hourly-forecast-icon icon filled"></span>
+                <p class="hourly-forecast-temperature"></p>
+            </div>
+            <div class="hourly-forecast">
+                <p class="hourly-forecast-time"></p>
+                <span class="hourly-forecast-icon icon filled"></span>
+                <p class="hourly-forecast-temperature"></p>
+            </div>
+        </div>
+        <div class="daily-forecast-container">
+            <div class="daily-forecast">
+                <p class="daily-forecast-date"></p>
+                <p class="daily-forecast-day"></p>
+                <span class="daily-forecast-icon icon filled"></span>
+                <p class="daily-forecast-temperature"></p>
+            </div>
+            <div class="daily-forecast">
+                <p class="daily-forecast-date">10/12</p>
+                <p class="daily-forecast-day">MAR</p>
+                <span class="daily-forecast-icon icon filled">sunny</span>
+                <p class="daily-forecast-temperature">31</p>
+            </div>
+            <div class="daily-forecast">
+                <p class="daily-forecast-date">11/12</p>
+                <p class="daily-forecast-day">MIÉ</p>
+                <span class="daily-forecast-icon icon filled">cloudy</span>
+                <p class="daily-forecast-temperature">31</p>
+            </div>
+            <div class="daily-forecast">
+                <p class="daily-forecast-date">12/12</p>
+                <p class="daily-forecast-day">JUE</p>
+                <span class="daily-forecast-icon icon filled">sunny</span>
+                <p class="daily-forecast-temperature">31</p>
+            </div>
+        </div>
+    </main>
+    <script src="main.js"></script>
+</body>
+</html>
