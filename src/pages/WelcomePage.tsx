@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion'
 
 import "../styles/backgrounds.css";
-import "../styles/WelcomePage.css";
 
 function WelcomePage() {
     const navigate = useNavigate();

@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import NavBar from '../components/ui/NavBar';
 
 import "../styles/backgrounds.css";
-import "../styles/WelcomePage.css";
 
 function SettingsPage() {
     return (

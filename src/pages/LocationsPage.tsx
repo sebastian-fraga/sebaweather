@@ -27,11 +27,11 @@ function LocationsPage() {
         <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }}>
                 <main className="min-h-[90vh] flex flex-col items-center justify-center gap-8 px-8 pb-32">
-                    <h2 className="text-4xl font-semibold text-white self-center">
+                    <h2 className="text-4xl font-semibold text-white self-center text-center">
                         Ubicaciones guardadas
                     </h2>
 
-                    <div className="flex flex-col gap-6 w-[50vw]">
+                    <div className="flex flex-col gap-6 w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-4xl mx-auto">
                         {state.favoriteCities.map((city) => (
                             <CityCard
                                 key={city.id}
@@ -48,7 +48,6 @@ function LocationsPage() {
                                     setEditingCity(city);
                                 }}
                             />
-
                         ))}
                         {editingCity && (
                             <EditFavoriteCityModal
@@ -63,7 +62,7 @@ function LocationsPage() {
 
                         <button
                             onClick={() => navigate('/home')}
-                            className="group flex flex-col items-center justify-center gap-3 h-[20vh] rounded-4xl border-2 border-dashed border-white/30 hover:border-white/60 hover:bg-white/5 transition-all cursor-pointer"
+                            className="group flex flex-col items-center justify-center gap-3 h-40 sm:h-48 md:h-52 rounded-4xl border-2 border-dashed border-white/30 hover:border-white/60 hover:bg-white/5 transition-all cursor-pointer"
                         >
                             <IconPlus size={40} stroke={2} className="text-white/70 group-hover:text-white transition-colors" />
                             <p className="text-xl text-white/70 group-hover:text-white transition-colors">

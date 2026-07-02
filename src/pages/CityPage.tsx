@@ -174,10 +174,19 @@ function CityPage() {
                                 className="rounded-md w-12 h-8 sm:w-16 sm:h-10"
                             />
                         )}
-                        <h2 className='text-2xl sm:text-3xl md:text-4xl font-medium'>{city?.name}</h2>
+                        <div className="flex items-center gap-2 sm:items-center text-2xl sm:text-3xl md:text-4xl">
+                            <h2 className='font-medium'>{city?.name},</h2>
+                            {city?.region && (
+                                <p className="font-light text-slate-100/80">{city.region}</p>
+                            )}
+                        </div>
                     </div>
 
-                    <div className='grid grid-cols-1 sm:grid-cols-2 items-center bg-linear-180 from-white/20 to-white/50 w-full max-w-2xl md:max-w-3xl lg:max-w-7xl lg:w-200 h-auto sm:h-auto lg:h-90 lg:max-h-120 rounded-3xl sm:rounded-[40px] mt-6 sm:mt-8 mb-8 sm:mb-12 p-6 sm:p-8 md:p-12 gap-6 sm:gap-0'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 items-center bg-linear-to-br
+from-violet-500
+via-purple-400
+to-fuchsia-400
+backdrop-blur-xl w-full max-w-2xl md:max-w-3xl lg:max-w-7xl lg:w-200 h-auto sm:h-auto lg:h-90 lg:max-h-120 rounded-3xl sm:rounded-[40px] mt-6 sm:mt-8 mb-8 sm:mb-12 p-6 sm:p-8 md:p-12 gap-6 sm:gap-0'>
                         <div className="flex justify-center">
                             <TemperatureGauge
                                 current={Math.round(weather.current.temp_c)}
@@ -203,9 +212,9 @@ function CityPage() {
                                 <div
                                     key={day.date_epoch}
                                     className={`w-32 h-44 sm:w-40 sm:h-52 md:w-44 md:h-56 shrink-0 rounded-xl py-4 sm:py-5 md:py-6 px-3 sm:px-4 flex flex-col items-center justify-between gap-2 sm:gap-3 transition-all duration-200
-                        ${isToday ? "bg-linear-180 from-white/50 to-purple-300" : "bg-white/10"}`}
+                        ${isToday ? "bg-linear-to-br from-violet-500 via-purple-400 to-fuchsia-400" : "bg-white/10"}`}
                                 >
-                                    <p className={`text-sm sm:text-md font-medium ${isToday ? "text-black" : "text-white/80"}`}>{getDayLabel(day.date)}</p>
+                                    <p className={`text-sm sm:text-md font-medium ${isToday ? "text-white" : "text-white/80"}`}>{getDayLabel(day.date)}</p>
 
                                     <img
                                         src={`https:${day.day.condition.icon.replace("64x64", "128x128")}`}
@@ -214,13 +223,13 @@ function CityPage() {
                                             }`}
                                     />
 
-                                    <p className={`text-[12px] sm:text-base md:text-lg text-center font-medium leading-tight line-clamp-2 min-h-[2.5em] flex items-center ${isToday ? "text-black" : "text-white/70"}`}>
+                                    <p className={`text-[12px] sm:text-base md:text-lg text-center font-medium leading-tight line-clamp-2 min-h-[2.5em] flex items-center ${isToday ? "text-white" : "text-white/90"}`}>
                                         {day.day.condition.text}
                                     </p>
 
-                                    <div className="flex gap-2 text-xs sm:text-sm">
-                                        <span className={`${isToday ? "text-blue-800" : "text-blue-200"}`}>{Math.round(day.day.mintemp_c)}°</span>
-                                        <span className={`${isToday ? "text-red-800" : "text-red-200"}`}>{Math.round(day.day.maxtemp_c)}°</span>
+                                    <div className="flex gap-2 text-xs sm:text-sm font-black">
+                                        <span className={`${isToday ? "text-blue-100" : "text-blue-200"}`}>{Math.round(day.day.mintemp_c)}°</span>
+                                        <span className={`${isToday ? "text-red-100" : "text-red-200"}`}>{Math.round(day.day.maxtemp_c)}°</span>
                                     </div>
                                 </div>
                             );
