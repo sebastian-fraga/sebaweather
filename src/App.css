@@ -24,7 +24,6 @@ body::selection {
         scrollbar-width: thin;
         scrollbar-color: rgba(168, 85, 247, 0.5) transparent;
         padding-bottom: 10px;
-        /* espacio para que la barra no toque los círculos */
     }
 
     .scrollbar-hide::-webkit-scrollbar {
