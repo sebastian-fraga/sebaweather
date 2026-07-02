@@ -1,0 +1,17 @@
+.welcome-bg {
+    background:
+        radial-gradient(circle 1000px at top right, rgba(89, 49, 218, 0.8), transparent),
+        linear-gradient(to bottom, #5F3CA0, #040404);
+}
+
+.home-bg {
+    background: linear-gradient(to bottom, #A733FF, #5F3CA0, #3C285C, #040404);
+}
+
+.city-bg {
+    background: linear-gradient(to bottom, #C18F4A, #5F4CA0, #3C285C, #040404);
+}
+
+.location-bg {
+    background: linear-gradient(to bottom, #1f4c5a, #583fa9, #2c1b47, #040404);
+}

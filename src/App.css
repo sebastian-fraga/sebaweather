@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+body {
+    font-family: "Manrope";
+    min-height: 100vh;
+}
+
+body::selection {
+    background: #9C51FB;
+    color: #fff;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@media (pointer: fine) {
+    .scrollbar-hide {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(168, 85, 247, 0.5) transparent;
+        padding-bottom: 10px;
+        /* espacio para que la barra no toque los círculos */
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: block;
+        height: 5px;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 999px;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar-thumb {
+        background: rgba(168, 85, 247, 0.6);
+        border-radius: 999px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+}
