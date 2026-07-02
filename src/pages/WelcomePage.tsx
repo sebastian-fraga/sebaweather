@@ -49,18 +49,11 @@ function WelcomePage() {
                 </div>
 
                 <button
-                    onClick={() => navigate("/home")}
-                    className="
-                        bg-linear-to-r from-purple-500 to-indigo-600
-                        text-white font-semibold
-                        rounded-2xl cursor-pointer
-                        transition-all active:scale-95 hover:brightness-110
-
-                        px-10 py-3
-                        sm:px-16 sm:py-4
-                        md:px-24 md:py-5
-                        text-base sm:text-lg md:text-xl
-                    "
+                    onClick={() => {
+                        localStorage.setItem("hasVisitedApp", "true");
+                        navigate("/home");
+                    }}
+                    className="bg-linear-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-2xl cursor-pointer transition-all active:scale-95 hover:brightness-110 px-10 py-3 sm:px-16 sm:py-4 md:px-24 md:py-5 text-base sm:text-lg md:text-xl"
                 >
                     Empezar
                 </button>

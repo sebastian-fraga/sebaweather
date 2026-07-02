@@ -18,8 +18,7 @@ function AnimatedRoutes() {
   useEffect(() => {
     const hasVisited = localStorage.getItem("hasVisitedApp");
 
-    if (!hasVisited && location.pathname === "/") {
-      localStorage.setItem("hasVisitedApp", "true");
+    if (hasVisited && location.pathname === "/") {
       navigate("/locations", { replace: true });
     }
   }, [location.pathname, navigate]);

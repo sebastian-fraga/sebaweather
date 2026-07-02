@@ -2,10 +2,10 @@ import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-import { IconHome, IconMapPin, IconSettings } from "@tabler/icons-react";
+import { IconSearch, IconMapPin, IconSettings } from "@tabler/icons-react";
 
 const navItems = [
-    { to: "/home", icon: <IconHome />, label: "Inicio" },
+    { to: "/home", icon: <IconSearch />, label: "Buscar" },
     { to: "/locations", icon: <IconMapPin />, label: "Ubicaciones" },
     { to: "/settings", icon: <IconSettings />, label: "Configuración" },
 ];
