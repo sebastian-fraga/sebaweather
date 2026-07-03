@@ -1,75 +1,73 @@
-# React + TypeScript + Vite
+![Logo](https://sebaweather.vercel.app/assets/images/github/banner.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ⛅ SebaWeather
 
-Currently, two official plugins are available:
+[![Deploy Status](https://img.shields.io/github/deployments/sebastian-fraga/sebaweather/production?label=vercel&logo=vercel)](https://sebaweather.vercel.app)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Made with React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+A weather application built with React and WeatherAPI, providing weather forecasts, current temperatures, wind speeds, and detailed weather conditions.
 
-## React Compiler
+## 🚀 Live Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+👉 **[sebaweather.vercel.app](https://sebaweather.vercel.app)**
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🔍 Search for cities worldwide
+- 🌡️ Current weather conditions
+- 📅 Multi-day weather forecast
+- 💨 Wind speed and direction
+- ⭐ Favorite cities
+- 📱 Responsive design
+- ✨ Smooth animations
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- [React](https://react.dev)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Framer Motion](https://motion.dev/)
+- [React Router](https://reactrouter.com)
+- [WeatherAPI](https://www.weatherapi.com/)
+- [pnpm](https://pnpm.io)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📦 Getting Started
 
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [pnpm](https://pnpm.io/installation)
+- A free API key from [WeatherAPI](https://www.weatherapi.com/)
+
+### Installation
+
+```bash
+git clone https://github.com/sebastian-fraga/sebaweather.git
+cd sebaweather
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the root of the project:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```dotenv
+VITE_WEATHER_API_KEY=your_weatherapi_key_here
 ```
+
+## 🗺️ Roadmap
+
+- [ ] Multi-language support
+- [ ] Weather alerts / notifications
+- [ ] PWA support (installable app)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome. Feel free to check the [issues page](https://github.com/sebastian-fraga/sebaweather/issues).
+
+## 📄 License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE.md) file for details.
