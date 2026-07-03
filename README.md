@@ -29,6 +29,7 @@ A weather application built with React and WeatherAPI, providing weather forecas
 - [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vite.dev/)
 - [Tailwind CSS](https://tailwindcss.com)
+- [Tabler Icons](https://tabler.io/icons)
 - [Framer Motion](https://motion.dev/)
 - [React Router](https://reactrouter.com)
 - [WeatherAPI](https://www.weatherapi.com/)
