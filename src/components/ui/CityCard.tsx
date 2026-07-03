@@ -6,6 +6,7 @@ import { IconArrowUpRight, IconEdit, IconTrash, IconWind, IconPhoto } from '@tab
 import { getCityImage } from '../../services/wikipediaApi';
 import { getCurrentWeather } from '../../services/weatherApi';
 import { getFlagUrl } from '../../utils/flags';
+import { useApp } from '../../context/AppContext';
 import type { FavoriteCity } from '../../types/weather';
 import { BACKGROUND_THEMES } from '../../constants/backgroundThemes';
 
@@ -17,6 +18,8 @@ type FavoriteCityCardProps = {
 };
 
 export default function FavoriteCityCard({ city, onClick, onRemove, onEdit }: FavoriteCityCardProps) {
+    const { state } = useApp()
+    const { preferences } = state
     const navigate = useNavigate()
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [temp, setTemp] = useState<number | null>(null);
@@ -27,19 +30,39 @@ export default function FavoriteCityCard({ city, onClick, onRemove, onEdit }: Fa
 
         getCurrentWeather(String(city.lat), String(city.lon))
             .then((data) => {
-                setTemp(Math.round(data.current.temp_c));
-                setWind(Math.round(data.current.wind_kph));
+                setTemp(
+                    Math.round(
+                        preferences.temperature === "celsius"
+                            ? data.current.temp_c
+                            : data.current.temp_f
+                    )
+                );
+
+                setWind(
+                    Math.round(
+                        preferences.wind === "kph"
+                            ? data.current.wind_kph
+                            : data.current.wind_mph
+                    )
+                );
             })
             .catch(() => {
                 setTemp(null);
                 setWind(null);
             });
-    }, [city.lat, city.lon, city.name]);
+    }, [
+        city.lat,
+        city.lon,
+        city.name,
+        preferences.temperature,
+        preferences.wind,
+    ]);
 
     const backgroundImage =
         city.backgroundTheme === "custom"
             ? city.customBackground ?? imageUrl
             : BACKGROUND_THEMES.find(t => t.id === city.backgroundTheme)?.image ?? imageUrl;
+
 
     return (
         <div
@@ -85,12 +108,14 @@ export default function FavoriteCityCard({ city, onClick, onRemove, onEdit }: Fa
 
             <div className="absolute bottom-2 left-3 sm:bottom-3 sm:left-4 text-white">
                 <p className="text-xl sm:text-2xl md:text-3xl font-bold leading-none">
-                    {temp !== null ? `${temp}°C` : "—"}
+                    {temp !== null
+                        ? `${temp}${preferences.temperature === "celsius" ? "°C" : "°F"}`
+                        : "—"}
                 </p>
                 {wind !== null && (
                     <p className="flex items-center gap-1 text-xs sm:text-sm text-white/80 mt-1">
                         <IconWind size={12} className="sm:w-3.5 sm:h-3.5" />
-                        {wind} km/h
+                        {wind} {preferences.wind === "kph" ? "km/h" : "mph"}
                     </p>
                 )}
             </div>

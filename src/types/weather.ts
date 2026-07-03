@@ -20,15 +20,20 @@ interface Location {
 interface CurrentWeather {
     temp_c: number;
     temp_f: number;
+    feelslike_c: number;
+    feelslike_f: number;
+
+    wind_kph: number;
+    wind_mph: number;
+
+    humidity: number;
     is_day: number;
+
     condition: {
         text: string;
         icon: string;
         code: number;
     };
-    wind_kph: number;
-    humidity: number;
-    feelslike_c: number;
 }
 
 export interface WeatherResponse {
@@ -45,8 +50,15 @@ export interface ForecastResponse {
             date_epoch: number;
             day: {
                 mintemp_c: number;
+                mintemp_f: number;
+
                 maxtemp_c: number;
-                condition: { text: string; icon: string };
+                maxtemp_f: number;
+
+                condition: {
+                    text: string;
+                    icon: string;
+                };
             };
         }[];
     };

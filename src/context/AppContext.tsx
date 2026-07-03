@@ -10,13 +10,21 @@ import {
 import type { City } from "../types/weather";
 
 type Preferences = {
-    units: "metric" | "imperial";
+    temperature: "celsius" | "fahrenheit";
+    wind: "kph" | "mph";
+    language: "es" | "en";
+    notificationsEnabled: boolean;
+    timeFormat: "24hs" | "12hs";
 };
 
 type AppState = {
     favoriteCities: FavoriteCity[];
     preferences: Preferences;
 };
+
+type SetPreferenceAction = {
+    [K in keyof Preferences]: { type: "SET_PREFERENCE"; payload: { key: K; value: Preferences[K] } };
+}[keyof Preferences];
 
 type AppAction =
     | { type: "ADD_FAVORITE"; payload: City }
@@ -28,12 +36,19 @@ type AppAction =
             data: Partial<FavoriteCity>;
         };
     }
-    | { type: "SET_UNITS"; payload: Preferences["units"] }
+    | SetPreferenceAction
+    | { type: "CLEAR_FAVORITES" }
     | { type: "HYDRATE"; payload: AppState };
 
 const initialState: AppState = {
     favoriteCities: [],
-    preferences: { units: "metric" },
+    preferences: {
+        temperature: "celsius",
+        wind: "kph",
+        language: "es",
+        notificationsEnabled: true,
+        timeFormat: "24hs",
+    },
 };
 
 const STORAGE_KEY = "sebaweather:app-state";
@@ -68,11 +83,17 @@ function appReducer(state: AppState, action: AppAction): AppState {
                         : city
                 ),
             };
-            
-        case "SET_UNITS":
+
+        case "CLEAR_FAVORITES":
             return {
                 ...state,
-                preferences: { ...state.preferences, units: action.payload },
+                favoriteCities: [],
+            };
+
+        case "SET_PREFERENCE":
+            return {
+                ...state,
+                preferences: { ...state.preferences, [action.payload.key]: action.payload.value },
             };
 
         case "HYDRATE":
@@ -92,7 +113,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const init = (): AppState => {
         try {
             const saved = localStorage.getItem(STORAGE_KEY);
-            return saved ? JSON.parse(saved) : initialState;
+            if (!saved) return initialState;
+            const parsed = JSON.parse(saved);
+            return {
+                ...initialState,
+                ...parsed,
+                preferences: { ...initialState.preferences, ...parsed.preferences },
+            };
         } catch {
             return initialState;
         }

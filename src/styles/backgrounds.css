@@ -15,3 +15,7 @@
 .location-bg {
     background: linear-gradient(to bottom, #1f4c5a, #583fa9, #2c1b47, #040404);
 }
+
+.settings-bg {
+    background: linear-gradient(to bottom, #3e0656, #301e6b, #12091f, #040404);
+}

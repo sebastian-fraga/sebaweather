@@ -8,6 +8,7 @@ function getBgClass(pathname: string) {
     if (pathname.startsWith('/home/city')) return 'city-bg';
     if (pathname === '/home') return 'home-bg';
     if (pathname === '/locations') return 'location-bg';
+    if (pathname === '/settings') return 'settings-bg';
     return 'welcome-bg';
 }
 

@@ -20,6 +20,7 @@ function CityPage() {
     const navigate = useNavigate();
     const location = useLocation();
     const { state, dispatch } = useApp();
+    const { preferences } = state;
 
     const city = location.state as City | null;
 
@@ -112,6 +113,23 @@ function CityPage() {
         });
     };
 
+    const currentTemp =
+        preferences.temperature === "celsius"
+            ? Math.round(weather.current.temp_c)
+            : Math.round(weather.current.temp_f);
+
+    const minTemp =
+        preferences.temperature === "celsius"
+            ? Math.round(todayForecast.day.mintemp_c)
+            : Math.round(todayForecast.day.mintemp_f);
+
+    const maxTemp =
+        preferences.temperature === "celsius"
+            ? Math.round(todayForecast.day.maxtemp_c)
+            : Math.round(todayForecast.day.maxtemp_f);
+
+
+
     return (
         <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }}>
@@ -182,16 +200,13 @@ function CityPage() {
                         </div>
                     </div>
 
-                    <div className='grid grid-cols-1 sm:grid-cols-2 items-center bg-linear-to-br
-from-violet-500
-via-purple-400
-to-fuchsia-400
-backdrop-blur-xl w-full max-w-2xl md:max-w-3xl lg:max-w-7xl lg:w-200 h-auto sm:h-auto lg:h-90 lg:max-h-120 rounded-3xl sm:rounded-[40px] mt-6 sm:mt-8 mb-8 sm:mb-12 p-6 sm:p-8 md:p-12 gap-6 sm:gap-0'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 items-center bg-linear-to-br from-violet-500 via-purple-400 to-fuchsia-400 backdrop-blur-xl w-full max-w-2xl md:max-w-3xl lg:max-w-7xl lg:w-200 h-auto sm:h-auto lg:h-90 lg:max-h-120 rounded-3xl sm:rounded-[40px] mt-6 sm:mt-8 mb-8 sm:mb-12 p-6 sm:p-8 md:p-12 gap-6 sm:gap-0'>
                         <div className="flex justify-center">
                             <TemperatureGauge
-                                current={Math.round(weather.current.temp_c)}
-                                min={Math.round(todayForecast.day.mintemp_c)}
-                                max={Math.round(todayForecast.day.maxtemp_c)}
+                                current={currentTemp}
+                                min={minTemp}
+                                max={maxTemp}
+                                unit={preferences.temperature}
                             />
                         </div>
                         <div className='flex flex-col items-center gap-2'>
@@ -228,8 +243,12 @@ backdrop-blur-xl w-full max-w-2xl md:max-w-3xl lg:max-w-7xl lg:w-200 h-auto sm:h
                                     </p>
 
                                     <div className="flex gap-2 text-xs sm:text-sm font-black">
-                                        <span className={`${isToday ? "text-blue-100" : "text-blue-200"}`}>{Math.round(day.day.mintemp_c)}°</span>
-                                        <span className={`${isToday ? "text-red-100" : "text-red-200"}`}>{Math.round(day.day.maxtemp_c)}°</span>
+                                        <span className={`${isToday ? "text-blue-100" : "text-blue-200"}`}>
+                                            {Math.round(minTemp)}°
+                                        </span>
+                                        <span className={`${isToday ? "text-red-100" : "text-red-200"}`}>
+                                            {Math.round(maxTemp)}°
+                                        </span>
                                     </div>
                                 </div>
                             );

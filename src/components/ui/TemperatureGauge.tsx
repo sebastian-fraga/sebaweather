@@ -8,6 +8,7 @@ type TemperatureGaugeProps = {
     current: number;
     min: number;
     max: number;
+    unit: "celsius" | "fahrenheit"
     secondaryText?: string;
 };
 
@@ -20,10 +21,10 @@ function tempToColor(temp: number) {
     ));
 
     const stops = [
-        { pos: 0, color: { r: 0, g: 0, b: 255 } }, 
+        { pos: 0, color: { r: 0, g: 0, b: 255 } },
         { pos: 0.33, color: { r: 156, g: 194, b: 255 } },
-        { pos: 0.66, color: { r: 255, g: 162, b: 156 } }, 
-        { pos: 1, color: { r: 255, g: 69, b: 56 } }, 
+        { pos: 0.66, color: { r: 255, g: 162, b: 156 } },
+        { pos: 1, color: { r: 255, g: 69, b: 56 } },
     ];
 
     let i = 0;
@@ -44,6 +45,7 @@ export default function TemperatureGauge({
     current,
     min,
     max,
+    unit,
     secondaryText,
 }: TemperatureGaugeProps) {
     const percentage = max === min
@@ -59,9 +61,24 @@ export default function TemperatureGauge({
     const cx = 50 + radius * Math.cos(angleRad);
     const cy = 50 + radius * Math.sin(angleRad);
 
-    const colorAtMin = tempToColor(min);
-    const colorAtMax = tempToColor(max);
-    const colorAtCurrent = tempToColor(current);
+    const currentForColor =
+        unit === "fahrenheit"
+            ? (current - 32) * 5 / 9
+            : current;
+
+    const minForColor =
+        unit === "fahrenheit"
+            ? (min - 32) * 5 / 9
+            : min;
+
+    const maxForColor =
+        unit === "fahrenheit"
+            ? (max - 32) * 5 / 9
+            : max;
+
+    const colorAtMin = tempToColor(minForColor);
+    const colorAtMax = tempToColor(maxForColor);
+    const colorAtCurrent = tempToColor(currentForColor);
 
     return (
         <div className="relative w-64 h-64">
@@ -108,7 +125,9 @@ export default function TemperatureGauge({
             </svg>
 
             <div className="absolute inset-0 flex flex-col items-center justify-center -translate-y-3">
-                <span className="text-5xl font-bold text-white">{current}°C</span>
+                <span className="text-5xl font-bold text-white">
+                    {current} {unit === "celsius" ? "°C" : "°F"}
+                </span>
                 {secondaryText && (
                     <span className="text-lg text-white/70">{secondaryText}</span>
                 )}
