@@ -18,7 +18,7 @@ function Header() {
             <div className="w-16 h-16 sm:w-20 sm:h-20 overflow-hidden shrink-0">
                 {View}
             </div>
-            <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight">
+            <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight mt-1">
                 SEBAWEATHER
             </h1>
         </header>
