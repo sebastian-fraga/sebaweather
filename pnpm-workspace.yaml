@@ -1,6 +1,6 @@
 allowBuilds:
-  '@firebase/util': set this to true or false
+  '@firebase/util': false
   esbuild: false
-  protobufjs: set this to true or false
+  protobufjs: false
 patchedDependencies:
   '@vercel/node@5.8.22': patches/@vercel__node@5.8.22.patch
