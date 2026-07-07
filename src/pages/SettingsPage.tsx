@@ -7,6 +7,7 @@ import { IconChevronRight, IconExternalLink } from '@tabler/icons-react';
 import { settingsConfig, type SettingField } from "../config/settingsConfig";
 import { linksConfig } from '../config/linksConfig';
 import { useApp } from '../context/AppContext';
+import { requestNotificationToken, saveNotificationSubscription, getStoredNotificationToken, deleteNotificationSubscription } from "../services/firebase";
 
 import NavBar from '../components/ui/NavBar';
 import SettingsModal from '../components/ui/SettingsModal';
@@ -26,10 +27,51 @@ export default function SettingsPage() {
 
     const handleFieldClick = (field: (typeof settingsConfig)[number]) => {
         if (field.type === "toggle" && field.key === "notificationsEnabled") {
-            dispatch({
-                type: "SET_PREFERENCE",
-                payload: { key: field.key, value: !preferences.notificationsEnabled, },
-            });
+            const turningOn = !preferences.notificationsEnabled;
+
+            if (turningOn) {
+                const primaryCity = state.favoriteCities[0];
+
+                if (!primaryCity) {
+                    alert(t("settings.notificationsEnabled.noCityError"));
+                    return;
+                }
+
+                requestNotificationToken()
+                    .then((token) => {
+                        if (!token) {
+                            console.warn("Permiso de notificaciones denegado");
+                            return;
+                        }
+
+                        return saveNotificationSubscription(token, {
+                            name: primaryCity.name,
+                            lat: primaryCity.lat,
+                            lon: primaryCity.lon,
+                        }).then(() => {
+                            dispatch({
+                                type: "SET_PREFERENCE",
+                                payload: { key: "notificationsEnabled", value: true },
+                            });
+                        });
+                    })
+                    .catch((err) => console.error("Error activando notificaciones:", err));
+            } else {
+                const token = getStoredNotificationToken();
+
+                const cleanup = token
+                    ? deleteNotificationSubscription(token)
+                    : Promise.resolve();
+
+                cleanup
+                    .catch((err) => console.error("Error desactivando notificaciones:", err))
+                    .finally(() => {
+                        dispatch({
+                            type: "SET_PREFERENCE",
+                            payload: { key: "notificationsEnabled", value: false },
+                        });
+                    });
+            }
         } else if (field.type === "select") {
             setModalField(field);
             setOpenField(field.key);
