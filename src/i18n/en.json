@@ -63,10 +63,6 @@
             "label": "Wind speed",
             "options": { "kph": "km/h", "mph": "mph" }
         },
-        "timeFormat": {
-            "label": "Time format",
-            "options": { "24hs": "24 hours", "12hs": "12 hours" }
-        },
         "clearFavorites": {
             "label": "Clear favorites",
             "description": "Deletes all cities added to favorites",

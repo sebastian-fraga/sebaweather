@@ -4,7 +4,6 @@ import {
     IconWind,
     IconLanguage,
     IconBell,
-    IconClock,
     IconStarOff,
 } from "@tabler/icons-react";
 
@@ -27,14 +26,8 @@ export type SettingField =
         key: "language";
         icon: Icon;
         type: "select";
-        options: { value: "es" | "en" }[];
-    }
-    | {
-        key: "timeFormat";
-        icon: Icon;
-        type: "select";
         wip?: boolean;
-        options: { value: "24hs" | "12hs" }[];
+        options: { value: "es" | "en" }[];
     }
     | {
         key: "notificationsEnabled";
@@ -77,13 +70,6 @@ export const settingsConfig: SettingField[] = [
         icon: IconWind,
         type: "select",
         options: [{ value: "kph" }, { value: "mph" }],
-    },
-    {
-        key: "timeFormat",
-        icon: IconClock,
-        type: "select",
-        wip: true,
-        options: [{ value: "24hs" }, { value: "12hs" }],
     },
     {
         key: "clearFavorites",
