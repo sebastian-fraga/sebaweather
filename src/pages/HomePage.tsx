@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { IconSearch, IconArrowRight, IconListSearch } from "@tabler/icons-react";
 import { motion } from 'framer-motion'
@@ -14,6 +15,7 @@ import "../styles/HomePage.css";
 import "../styles/backgrounds.css";
 
 function HomePage() {
+    const { t } = useTranslation();
     const { results, status, search } = useSearch();
     const navigate = useNavigate();
     const [query, setQuery] = useState("");
@@ -39,7 +41,7 @@ function HomePage() {
                         <input
                             type="search"
                             className="bg-white w-full rounded-2xl py-3 sm:py-4 md:py-5 pl-14 sm:pl-16 md:pl-18 pr-4 sm:pr-6 text-lg sm:text-2xl md:text-3xl font-semibold placeholder:text-gray-400"
-                            placeholder="Buscar ciudad..."
+                            placeholder={t("home.search.placeholder")}
                             onChange={(e) => {
                                 const value = e.target.value;
                                 setQuery(value);
@@ -55,7 +57,7 @@ function HomePage() {
                             }`}
                     >
                         <p className="text-xs sm:text-sm text-gray-300 px-4">
-                            ¿No encuentras tu ciudad? Intenta agregar el país o provincia.
+                            {t("home.search.tip")}
                         </p>
                     </div>
 
@@ -67,7 +69,7 @@ function HomePage() {
                         >
                             <div className="flex flex-col items-center gap-4">
                                 <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-gray-300 border-t-purple-600 rounded-full animate-spin" />
-                                <p className="text-base sm:text-lg text-slate-700">Buscando...</p>
+                                <p className="text-base sm:text-lg text-slate-700">{t("home.search.searching")}</p>
                             </div>
                         </div>
 
@@ -77,7 +79,7 @@ function HomePage() {
                         >
                             <div className="flex flex-col py-6 sm:py-12 h-full overflow-y-auto">
                                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 sm:mb-8 px-4 sm:px-0">
-                                    Resultados de búsqueda
+                                    {t("home.search.results")}
                                 </h2>
 
                                 {results.map((city: City) => (
@@ -120,10 +122,10 @@ function HomePage() {
                                 }`}
                         >
                             <p className="text-lg sm:text-xl font-semibold text-slate-700">
-                                No se encontraron ciudades
+                                {t("home.search.noResults")}
                             </p>
                             <p className="text-xs sm:text-sm text-slate-500">
-                                Intenta con otro nombre
+                                {t("home.search.tryAnotherSearch")}
                             </p>
                         </div>
 
@@ -134,7 +136,7 @@ function HomePage() {
                             <div className="flex items-center gap-3 sm:gap-4">
                                 <IconListSearch />
                                 <p className="text-base sm:text-xl text-slate-950/70 text-left sm:text-center">
-                                    Busca una ciudad para comenzar
+                                    {t("home.search.start")}
                                 </p>
                             </div>
                         </div>

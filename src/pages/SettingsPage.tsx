@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom';
 import { IconChevronRight, IconExternalLink } from '@tabler/icons-react';
@@ -14,7 +15,7 @@ import SettingsSection from '../components/ui/SettingsSection';
 import "../styles/backgrounds.css";
 
 export default function SettingsPage() {
-
+    const { t } = useTranslation();
     const { state, dispatch } = useApp();
     const { preferences } = state;
     const navigate = useNavigate();
@@ -52,10 +53,10 @@ export default function SettingsPage() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }}>
                 <main className="min-h-[90vh] flex flex-col items-center justify-center gap-6 px-8 pb-32">
                     <h2 className="text-4xl font-semibold text-white self-center text-center">
-                        Configuración
+                        {t("settings.title")}
                     </h2>
 
-                    <SettingsSection title="Preferencias">
+                    <SettingsSection title={t("settings.sections.preferences")}>
                         {settingsConfig.map((field, i) => (
                             <motion.div
                                 key={field.key}
@@ -76,10 +77,13 @@ export default function SettingsPage() {
                                     />
                                     <div>
                                         <p className={`font-medium ${field.type === "action" && field.destructive ? "text-red-100" : "text-white"}`}>
-                                            {field.label}
+                                            {t(`settings.${field.key}.label`)}
+                                            {field.wip ? " 🚧" : ""}
                                         </p>
-                                        {"description" in field && field.description && (
-                                            <p className="text-sm text-white/80">{field.description}</p>
+                                        {"hasDescription" in field && field.hasDescription && (
+                                            <p className="text-sm text-white/80">
+                                                {t(`settings.${field.key}.description`)}
+                                            </p>
                                         )}
                                     </div>
                                 </div>
@@ -91,7 +95,7 @@ export default function SettingsPage() {
                                 {field.type === "select" && (
                                     <div className="flex items-center gap-1 text-white/80">
                                         <span className="text-sm">
-                                            {field.options.find((o) => o.value === preferences[field.key as keyof typeof preferences])?.label}
+                                            {t(`settings.${field.key}.options.${preferences[field.key as keyof typeof preferences]}`)}
                                         </span>
                                         <motion.div
                                             animate={{ rotate: openField === field.key ? 90 : 0 }}
@@ -105,7 +109,7 @@ export default function SettingsPage() {
                         ))}
                     </SettingsSection>
 
-                    <SettingsSection title="Links">
+                    <SettingsSection title={t("settings.sections.links")}>
                         {linksConfig.map((link, i) => (
                             <motion.div
                                 key={link.key}
@@ -121,7 +125,10 @@ export default function SettingsPage() {
                                         stroke={1.75}
                                         className="text-black/90 p-1.5 bg-white/90 rounded-xl"
                                     />
-                                    <p className="font-medium text-white">{link.label}</p>
+                                    <p className="font-medium text-white">
+                                        {t(`settings.${link.key}.label`)}
+                                        {link.wip ? " 🚧" : ""}
+                                    </p>
                                 </div>
                                 {link.external ? (
                                     <IconExternalLink size={18} className="text-white/80" />
@@ -139,8 +146,11 @@ export default function SettingsPage() {
                 <SettingsModal
                     isOpen={!!openField}
                     onClose={closeModal}
-                    title={modalField.label}
-                    options={modalField.options}
+                    title={t(`settings.${modalField.key}.label`)}
+                    options={modalField.options.map((opt) => ({
+                        value: opt.value,
+                        label: t(`settings.${modalField.key}.options.${opt.value}`),
+                    }))}
                     selected={preferences[modalField.key as keyof typeof preferences]}
                     onSelect={(value) =>
                         dispatch({
@@ -158,10 +168,10 @@ export default function SettingsPage() {
                 <SettingsModal
                     isOpen={confirmDelete}
                     onClose={() => setConfirmDelete(false)}
-                    title="¿Eliminar favoritos?"
+                    title={t("settings.clearFavorites.label")}
                     options={[
-                        { value: true, label: "Eliminar" },
-                        { value: false, label: "Cancelar" },
+                        { value: true, label: t("settings.clearFavorites.confirm") },
+                        { value: false, label: t("settings.clearFavorites.cancel") },
                     ]}
                     selected={null}
                     onSelect={(value) => {

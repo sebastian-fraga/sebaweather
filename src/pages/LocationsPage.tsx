@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { IconPlus } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+
+import { IconPlus } from '@tabler/icons-react';
 
 import { useApp } from '../context/AppContext';
 import type { FavoriteCity } from "../types/weather";
@@ -13,6 +15,7 @@ import EditFavoriteCityModal from '../components/ui/EditFavoriteCityModal'
 import "../styles/backgrounds.css";
 
 function LocationsPage() {
+    const { t } = useTranslation()
     const { state, dispatch } = useApp();
     const [editingCity, setEditingCity] = useState<FavoriteCity | null>(null);
     const [editingImage, setEditingImage] = useState<string | null>(null);
@@ -28,7 +31,7 @@ function LocationsPage() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }}>
                 <main className="min-h-[90vh] flex flex-col items-center justify-center gap-8 px-8 pb-32">
                     <h2 className="text-4xl font-semibold text-white self-center text-center">
-                        Ubicaciones guardadas
+                        {t("locations.title")}
                     </h2>
 
                     <div className="flex flex-col gap-6 w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-4xl mx-auto">
@@ -66,7 +69,7 @@ function LocationsPage() {
                         >
                             <IconPlus size={40} stroke={2} className="text-white/70 group-hover:text-white transition-colors" />
                             <p className="text-xl text-white/70 group-hover:text-white transition-colors">
-                                Agregar una ciudad
+                                {t("locations.addCity")}
                             </p>
                         </button>
                     </div>

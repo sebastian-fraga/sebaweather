@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { IconPhoto, IconDeviceFloppy, IconX, IconRestore } from "@tabler/icons-react";
 
@@ -19,6 +20,7 @@ export default function EditFavoriteCityModal({
     wikipediaImage,
     onClose,
 }: EditFavoriteCityModalProps) {
+    const { t } = useTranslation()
     const { dispatch } = useApp();
     const initialState = {
         nickname: city.nickname ?? city.name,
@@ -44,14 +46,14 @@ export default function EditFavoriteCityModal({
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50 p-4">
             <div className="text-white bg-zinc-900 w-full max-w-md sm:max-w-lg md:max-w-xl max-h-[90vh] overflow-y-auto p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl relative">
-                <h2 className="text-lg sm:text-xl font-semibold">Editar nombre</h2>
+                <h2 className="text-lg sm:text-xl font-semibold">{t("locations.edit.cityName")}</h2>
                 <input
                     type="text"
                     value={nickname}
                     maxLength={26}
                     onChange={(e) => setNickname(e.target.value)}
                     className="w-full bg-zinc-800 text-white px-4 py-2 rounded-lg mb-5 mt-2 text-sm sm:text-base"
-                    placeholder="Nombre personalizado (ej. Casa)"
+                    placeholder={t("locations.edit.placeholder")}
                 />
 
                 <button onClick={onClose} className="absolute top-3 right-3 sm:top-4 sm:right-5 hover:bg-white/30 rounded-full p-1.5 sm:p-2 transition-all cursor-pointer">
@@ -74,11 +76,11 @@ export default function EditFavoriteCityModal({
 
                     <div className="absolute bottom-2 left-3 sm:bottom-3 sm:left-4 text-white">
                         <p className="text-base sm:text-lg font-bold truncate max-w-[80vw]">{nickname}</p>
-                        <p className="text-xs opacity-70">Previsualización</p>
+                        <p className="text-xs opacity-70">{t("locations.edit.preview")}</p>
                     </div>
                 </div>
 
-                <h2 className="text-lg sm:text-xl font-semibold">Tema</h2>
+                <h2 className="text-lg sm:text-xl font-semibold">{t("locations.edit.theme")}</h2>
                 <div className="mt-2 -mx-5 sm:-mx-8 md:-mx-10 px-5 sm:px-8 md:px-10 -mb-8 sm:-mb-10">
                     <div className="-mt-8 sm:-mt-10">
                         <BackgroundSelector
@@ -112,7 +114,7 @@ export default function EditFavoriteCityModal({
                     }}
                 />
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 mt-3">
                     <button
                         className="w-full sm:w-auto flex items-center justify-center gap-3 sm:gap-4 bg-linear-180 from-purple-500 to-purple-800 mt-8 sm:mt-12 py-3 sm:py-4 px-6 sm:px-10 md:px-16 rounded-xl cursor-pointer transition-all hover:brightness-80 active:scale-95"
                         onClick={() => {
@@ -132,7 +134,7 @@ export default function EditFavoriteCityModal({
                         }}
                     >
                         <IconDeviceFloppy size={20} className="sm:w-6 sm:h-6" />
-                        <span className="text-sm sm:text-base font-medium">Guardar</span>
+                        <span className="text-sm sm:text-base font-medium">{t("locations.edit.save")}</span>
                     </button>
 
                     <button
@@ -140,7 +142,7 @@ export default function EditFavoriteCityModal({
                         className="w-full sm:w-auto flex items-center justify-center gap-3 sm:gap-4 bg-linear-180 from-white to-slate-200 text-black mt-0 sm:mt-12 py-3 sm:py-4 px-6 sm:px-10 md:px-16 rounded-xl cursor-pointer transition-all hover:brightness-80 active:scale-95"
                     >
                         <IconRestore size={20} className="sm:w-6 sm:h-6" />
-                        <span className="text-sm sm:text-base font-medium">Reiniciar</span>
+                        <span className="text-sm sm:text-base font-medium">{t("locations.edit.reset")}</span>
                     </button>
                 </div>
 

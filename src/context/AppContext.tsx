@@ -1,3 +1,5 @@
+import i18n from "../i18n";
+
 import type { FavoriteCity } from "../types/weather";
 
 import {
@@ -45,7 +47,7 @@ const initialState: AppState = {
     preferences: {
         temperature: "celsius",
         wind: "kph",
-        language: "es",
+        language: (i18n.language?.split("-")[0] as "es" | "en") || "es",
         notificationsEnabled: true,
         timeFormat: "24hs",
     },
@@ -135,12 +137,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
         }
     }, [state]);
 
+    useEffect(() => {
+        if (i18n.language !== state.preferences.language) {
+            i18n.changeLanguage(state.preferences.language);
+        }
+    }, [state.preferences.language]);
+
     return (
         <AppContext.Provider value={{ state, dispatch }}>
             {children}
         </AppContext.Provider>
     );
 }
+
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function useApp() {

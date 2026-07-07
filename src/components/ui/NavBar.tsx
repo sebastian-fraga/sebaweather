@@ -1,16 +1,18 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { IconSearch, IconMapPin, IconSettings } from "@tabler/icons-react";
 
 const navItems = [
-    { to: "/home", icon: <IconSearch />, label: "Buscar" },
-    { to: "/locations", icon: <IconMapPin />, label: "Ubicaciones" },
-    { to: "/settings", icon: <IconSettings />, label: "Configuración" },
+    { to: "/home", icon: <IconSearch />, labelKey: "navbar.search" },
+    { to: "/locations", icon: <IconMapPin />, labelKey: "navbar.locations" },
+    { to: "/settings", icon: <IconSettings />, labelKey: "navbar.settings" },
 ];
 
 function NavBar() {
+    const { t } = useTranslation()
     const location = useLocation();
     const [hovered, setHovered] = useState<string | null>(null);
 
@@ -18,7 +20,7 @@ function NavBar() {
         <nav className="fixed inset-x-0 bottom-4 sm:bottom-6 md:bottom-10 flex justify-center z-50">
             <div className="flex items-center gap-2 sm:gap-3 bg-indigo-950/60 backdrop-blur-md rounded-full px-2 sm:px-3 py-1 shadow-lg">
 
-                {navItems.map(({ to, icon, label }) => {
+                {navItems.map(({ to, icon, labelKey }) => {
                     const isActive = location.pathname.startsWith(to);
                     const isHovered = hovered === to;
 
@@ -53,7 +55,7 @@ function NavBar() {
                             </span>
 
                             <span className="hidden sm:block pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 rounded-lg bg-white px-3 py-1 text-sm text-black opacity-0 transition-opacity duration-200 group-hover:opacity-100 z-20">
-                                {label}
+                                {t(labelKey)}
                             </span>
                         </NavLink>
                     );

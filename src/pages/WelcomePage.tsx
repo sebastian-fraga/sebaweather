@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion'
+import { useTranslation } from "react-i18next";
 
 import "../styles/backgrounds.css";
 
 function WelcomePage() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     return (
@@ -34,7 +36,7 @@ function WelcomePage() {
                         font-medium text-white
                         text-3xl sm:text-4xl md:text-5xl lg:text-6xl
                     ">
-                        Asistente del clima
+                        {t('welcome.title')}
                     </h2>
 
                     <p className="
@@ -43,7 +45,7 @@ function WelcomePage() {
                         max-w-xs sm:max-w-md md:max-w-lg
                         leading-relaxed
                     ">
-                        Consulta el clima en tiempo real con datos de WeatherAPI
+                        {t('welcome.paragraph')}
                     </p>
                 </div>
 
@@ -54,7 +56,7 @@ function WelcomePage() {
                     }}
                     className="bg-linear-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-2xl cursor-pointer transition-all active:scale-95 hover:brightness-110 px-10 py-3 sm:px-16 sm:py-4 md:px-24 md:py-5 text-base sm:text-lg md:text-xl"
                 >
-                    Empezar
+                    {t('welcome.button')}
                 </button>
 
             </main>

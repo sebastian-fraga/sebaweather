@@ -1,0 +1,94 @@
+{
+    "welcome": {
+        "title": "Weather Assistant",
+        "paragraph": "Check real-time weather with data from WeatherAPI",
+        "button": "Get Started"
+    },
+    "home": {
+        "search": {
+            "placeholder": "Search city...",
+            "tip": "Can't find your city? Try adding the country or province.",
+            "searching": "Searching...",
+            "results": "Search results",
+            "noResults": "No cities found",
+            "tryAnotherSearch": "Try again with a different name",
+            "start": "Search for a city to get started"
+        }
+    },
+    "city": {
+        "noForecast": "Couldn't load the forecast.",
+        "removeFavorite": "Remove from favorites",
+        "addFavorite": "Add to favorites",
+        "loading": "Loading weather..."
+    },
+    "locations": {
+        "title": "Saved locations",
+        "addCity": "Add a city",
+        "edit": {
+            "cityName": "Edit name",
+            "placeholder": "Custom name (e.g. Home)",
+            "preview": "Preview",
+            "theme": "Theme",
+            "save": "Save",
+            "reset": "Reset",
+            "customImage": "Custom image (900px x 320px)",
+            "sunset": "Sunset",
+            "ocean": "Ocean",
+            "forest": "Forest",
+            "midnight": "Midnight"
+        }
+    },
+    "settings": {
+        "title": "Settings",
+        "sections": {
+            "preferences": "Preferences",
+            "links": "Links"
+        },
+        "language": {
+            "label": "Language",
+            "options": { "es": "Español", "en": "English" }
+        },
+        "notificationsEnabled": {
+            "label": "Notifications",
+            "description": "Forecast, weather alerts"
+        },
+        "temperature": {
+            "label": "Temperature",
+            "options": {
+                "celsius": "Celsius (°C)",
+                "fahrenheit": "Fahrenheit (°F)"
+            }
+        },
+        "wind": {
+            "label": "Wind speed",
+            "options": { "kph": "km/h", "mph": "mph" }
+        },
+        "timeFormat": {
+            "label": "Time format",
+            "options": { "24hs": "24 hours", "12hs": "12 hours" }
+        },
+        "clearFavorites": {
+            "label": "Clear favorites",
+            "description": "Deletes all cities added to favorites",
+            "confirm": "Delete",
+            "cancel": "Cancel"
+        },
+        "privacy": {
+            "label": "Privacy"
+        },
+        "about": {
+            "label": "About"
+        },
+        "github": {
+            "label": "GitHub Repository"
+        },
+        "donate": {
+            "label": "Donate"
+        }
+    },
+    "navbar": {
+        "search": "Search",
+        "locations": "Locations",
+        "settings": "Settings"
+    }
+}

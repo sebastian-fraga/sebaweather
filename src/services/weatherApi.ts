@@ -9,9 +9,13 @@ export async function searchCities(query: string) {
     return res.json()
 }
 
-export async function getCurrentWeather(lat: string, lon: string) {
+export async function getCurrentWeather(
+    lat: string,
+    lon: string,
+    language?: "es" | "en"
+) {
     const res = await fetch(
-        `${BASE_URL}/current.json?key=${API_KEY}&q=${lat},${lon}&lang=es`
+        `${BASE_URL}/current.json?key=${API_KEY}&q=${lat},${lon}&lang=${language}`
     );
 
     if (!res.ok) throw new Error("Error obteniendo el clima");
@@ -19,9 +23,14 @@ export async function getCurrentWeather(lat: string, lon: string) {
     return res.json();
 }
 
-export async function getForecast(lat: string, lon: string, days = 4) {
+export async function getForecast(
+    lat: string,
+    lon: string,
+    language: "es" | "en",
+    days = 4
+) {
     const res = await fetch(
-        `${BASE_URL}/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=${days}&lang=es`
+        `${BASE_URL}/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=${days}&lang=${language}`
     );
 
     if (!res.ok) throw new Error("Error obteniendo el pronóstico");

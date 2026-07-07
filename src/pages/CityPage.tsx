@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 import { IconChevronLeft, IconDots, IconStar, IconStarFilled } from '@tabler/icons-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,10 +17,12 @@ import '../styles/CityPage.css'
 import "../styles/backgrounds.css";
 
 function CityPage() {
+    const { t } = useTranslation()
+    const { state, dispatch } = useApp();
+    const language = state.preferences.language;
     const { lat, lon } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
-    const { state, dispatch } = useApp();
     const { preferences } = state;
 
     const city = location.state as City | null;
@@ -51,7 +54,7 @@ function CityPage() {
                 setLoading(true);
                 setError(false);
 
-                const data = await getForecast(lat, lon);
+                const data = await getForecast(lat, lon, language);
                 setWeather(data);
             } catch (err) {
                 console.error(err);
@@ -62,7 +65,7 @@ function CityPage() {
         }
 
         loadWeather();
-    }, [lat, lon]);
+    }, [lat, lon, language]);
 
     if (loading) {
         return (
@@ -72,7 +75,7 @@ function CityPage() {
                 >
                     <div className="flex flex-col items-center gap-4">
                         <div className="w-12 h-12 border-4 border-gray-300 border-t-purple-600 rounded-full animate-spin" />
-                        <p className="text-lg text-white/80">Cargando clima...</p>
+                        <p className="text-lg text-white/80">{t("city.loading")}</p>
                     </div>
                 </div>
             </motion.div>
@@ -92,14 +95,16 @@ function CityPage() {
         const [year, month, day] = dateString.split("-").map(Number);
         const date = new Date(year, month - 1, day);
 
-        return date.toLocaleDateString("es-AR", {
+        const locale = language === "es" ? "es-AR" : "en-US";
+
+        return date.toLocaleDateString(locale, {
             weekday: "short",
             day: "numeric",
         });
     }
 
     if (!todayForecast) {
-        return <p>No se pudo cargar el pronóstico</p>;
+        return <p>{t("city.noForecast")}</p>;
     }
 
     const isFavorite = city ? state.favoriteCities.some((c) => c.id === city.id) : false;
@@ -127,8 +132,6 @@ function CityPage() {
         preferences.temperature === "celsius"
             ? Math.round(todayForecast.day.maxtemp_c)
             : Math.round(todayForecast.day.maxtemp_f);
-
-
 
     return (
         <>
@@ -175,7 +178,11 @@ function CityPage() {
                                         ) : (
                                             <IconStar size={18} className="sm:w-5 sm:h-5" />
                                         )}
-                                        <span>{isFavorite ? "Quitar de favoritos" : "Añadir a favoritos"}</span>
+                                        <span>
+                                            {isFavorite
+                                                ? t("city.removeFavorite")
+                                                : t("city.addFavorite")}
+                                        </span>
                                     </button>
                                 </motion.div>
                             )}
@@ -223,6 +230,17 @@ function CityPage() {
                         {days.map((day, index) => {
                             const isToday = index === 0;
 
+                            const dayMin =
+                                preferences.temperature === "celsius"
+                                    ? Math.round(day.day.mintemp_c)
+                                    : Math.round(day.day.mintemp_f);
+
+                            const dayMax =
+                                preferences.temperature === "celsius"
+                                    ? Math.round(day.day.maxtemp_c)
+                                    : Math.round(day.day.maxtemp_f);
+
+
                             return (
                                 <div
                                     key={day.date_epoch}
@@ -244,10 +262,10 @@ function CityPage() {
 
                                     <div className="flex gap-2 text-xs sm:text-sm font-black">
                                         <span className={`${isToday ? "text-blue-100" : "text-blue-200"}`}>
-                                            {Math.round(minTemp)}°
+                                            {dayMin}°
                                         </span>
                                         <span className={`${isToday ? "text-red-100" : "text-red-200"}`}>
-                                            {Math.round(maxTemp)}°
+                                            {dayMax}°
                                         </span>
                                     </div>
                                 </div>

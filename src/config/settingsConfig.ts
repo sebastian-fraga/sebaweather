@@ -11,102 +11,85 @@ import {
 export type SettingField =
     | {
         key: "temperature";
-        label: string;
         icon: Icon;
         type: "select";
-        options: { value: "celsius" | "fahrenheit"; label: string }[];
+        wip?: boolean;
+        options: { value: "celsius" | "fahrenheit" }[];
     }
     | {
         key: "wind";
-        label: string;
         icon: Icon;
         type: "select";
-        options: { value: "kph" | "mph"; label: string }[];
+        wip?: boolean;
+        options: { value: "kph" | "mph" }[];
     }
     | {
         key: "language";
-        label: string;
         icon: Icon;
         type: "select";
-        options: { value: "es" | "en"; label: string }[];
+        options: { value: "es" | "en" }[];
     }
     | {
         key: "timeFormat";
-        label: string;
         icon: Icon;
         type: "select";
-        options: { value: "24hs" | "12hs"; label: string }[];
+        wip?: boolean;
+        options: { value: "24hs" | "12hs" }[];
     }
     | {
         key: "notificationsEnabled";
-        label: string;
-        description?: string;
         icon: Icon;
         type: "toggle";
+        wip?: boolean;
+        hasDescription?: boolean;
     }
     | {
         key: "clearFavorites";
-        label: string;
-        description?: string;
         icon: Icon;
         type: "action";
+        wip?: boolean;
         destructive?: boolean;
+        hasDescription?: boolean;
     };
 
 export const settingsConfig: SettingField[] = [
     {
         key: "language",
-        label: "Idioma🚧",
         icon: IconLanguage,
         type: "select",
-        options: [
-            { value: "es", label: "Español" },
-            { value: "en", label: "English" },
-        ],
+        options: [{ value: "es" }, { value: "en" }],
     },
     {
         key: "notificationsEnabled",
-        label: "Notificaciones🚧",
-        description: "Pronóstico, alertas climáticas",
         icon: IconBell,
         type: "toggle",
+        wip: true,
+        hasDescription: true,
     },
     {
         key: "temperature",
-        label: "Temperatura",
         icon: IconTemperature,
         type: "select",
-        options: [
-            { value: "celsius", label: "Celsius (°C)" },
-            { value: "fahrenheit", label: "Fahrenheit (°F)" },
-        ],
+        options: [{ value: "celsius" }, { value: "fahrenheit" }],
     },
     {
         key: "wind",
-        label: "Velocidad del viento",
         icon: IconWind,
         type: "select",
-        options: [
-            { value: "kph", label: "km/h" },
-            { value: "mph", label: "mph" },
-        ],
+        options: [{ value: "kph" }, { value: "mph" }],
     },
     {
         key: "timeFormat",
-        label: "Formato de hora🚧",
         icon: IconClock,
         type: "select",
-        options: [
-            { value: "24hs", label: "24 horas" },
-            { value: "12hs", label: "12 horas" },
-        ],
+        wip: true,
+        options: [{ value: "24hs" }, { value: "12hs" }],
     },
     {
         key: "clearFavorites",
-        label: "Eliminar favoritos",
-        description: "Borra todas las ciudades agregadas a favoritos",
         icon: IconStarOff,
         type: "action",
         destructive: true,
+        hasDescription: true,
     },
 ];

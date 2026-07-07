@@ -1,0 +1,94 @@
+{
+    "welcome": {
+        "title": "Asistente del clima",
+        "paragraph": "Consulta el clima en tiempo real con datos de WeatherAPI",
+        "button": "Empezar"
+    },
+    "home": {
+        "search": {
+            "placeholder": "Buscar ciudad...",
+            "tip": "¿No encuentras tu ciudad? Intenta agregar el país o provincia.",
+            "searching": "Buscando...",
+            "results": "Resultados de búsqueda",
+            "noResults": "No se encontraron ciudades",
+            "tryAnotherSearch": "Intenta nuevamente con otro nombre",
+            "start": "Busca una ciudad para comenzar"
+        }
+    },
+    "city": {
+        "noForecast": "No se pudo cargar el pronóstico.",
+        "removeFavorite": "Quitar de favoritos",
+        "addFavorite": "Añadir a favoritos",
+        "loading": "Cargando clima..."
+    },
+    "locations": {
+        "title": "Ubicaciones guardadas",
+        "addCity": "Añadir una ciudad",
+        "edit": {
+            "cityName": "Editar nombre",
+            "placeholder": "Nombre personalizado (ej. Casa)",
+            "preview": "Previsualización",
+            "theme": "Tema",
+            "save": "Guardar",
+            "reset": "Reiniciar",
+            "customImage": "Imagen personalizada (900px x 320px)",
+            "sunset": "Atardecer",
+            "ocean": "Océano",
+            "forest": "Bosque",
+            "midnight": "Medianoche"
+        }
+    },
+    "settings": {
+        "title": "Configuración",
+        "sections": {
+            "preferences": "Preferencias",
+            "links": "Links"
+        },
+        "language": {
+            "label": "Idioma",
+            "options": { "es": "Español", "en": "English" }
+        },
+        "notificationsEnabled": {
+            "label": "Notificaciones",
+            "description": "Pronóstico, alertas climáticas"
+        },
+        "temperature": {
+            "label": "Temperatura",
+            "options": {
+                "celsius": "Celsius (°C)",
+                "fahrenheit": "Fahrenheit (°F)"
+            }
+        },
+        "wind": {
+            "label": "Velocidad del viento",
+            "options": { "kph": "km/h", "mph": "mph" }
+        },
+        "timeFormat": {
+            "label": "Formato de hora",
+            "options": { "24hs": "24 horas", "12hs": "12 horas" }
+        },
+        "clearFavorites": {
+            "label": "Eliminar favoritos",
+            "description": "Borra todas las ciudades agregadas a favoritos",
+            "confirm": "Eliminar",
+            "cancel": "Cancelar"
+        },
+        "privacy": {
+            "label": "Privacidad"
+        },
+        "about": {
+            "label": "Acerca de"
+        },
+        "github": {
+            "label": "Repositorio de GitHub"
+        },
+        "donate": {
+            "label": "Donar"
+        }
+    },
+    "navbar": {
+        "search": "Buscar",
+        "locations": "Ubicaciones",
+        "settings": "Configuración"
+    }
+}
