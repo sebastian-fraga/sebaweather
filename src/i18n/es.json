@@ -12,7 +12,8 @@
             "results": "Resultados de búsqueda",
             "noResults": "No se encontraron ciudades",
             "tryAnotherSearch": "Intenta nuevamente con otro nombre",
-            "start": "Busca una ciudad para comenzar"
+            "start": "Busca una ciudad para comenzar",
+            "recent": "Búsquedas recientes"
         }
     },
     "city": {
