@@ -82,7 +82,13 @@ export default function SettingsPage() {
 
     const handleLinkClick = (link: (typeof linksConfig)[number]) => {
         if (link.external) {
-            window.open(link.href, "_blank", "noopener,noreferrer");
+            const a = document.createElement("a");
+            a.href = link.href;
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
         } else {
             navigate(link.href);
         }
