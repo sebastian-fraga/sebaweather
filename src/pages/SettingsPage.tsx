@@ -67,11 +67,15 @@ export default function SettingsPage() {
                             return;
                         }
 
-                        return saveNotificationSubscription(token, {
-                            name: primaryCity.name,
-                            lat: primaryCity.lat,
-                            lon: primaryCity.lon,
-                        }).then(() => {
+                        return saveNotificationSubscription(
+                            token,
+                            {
+                                name: primaryCity.name,
+                                lat: primaryCity.lat,
+                                lon: primaryCity.lon,
+                            },
+                            preferences.language
+                        ).then(() => {
                             dispatch({
                                 type: "SET_PREFERENCE",
                                 payload: { key: "notificationsEnabled", value: true },

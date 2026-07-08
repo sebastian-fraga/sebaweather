@@ -3,6 +3,8 @@ import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { getMessaging } from "firebase-admin/messaging";
 
+import { getWeatherNotificationContent } from "../src/utils/weatherIcons";
+
 if (!getApps().length) {
     initializeApp({
         credential: cert({
@@ -32,25 +34,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let failed = 0;
 
     for (const docSnap of subscriptions.docs) {
-        const { token, lat, lon, cityName } = docSnap.data();
-
+        const { token, lat, lon, cityName, language } = docSnap.data();
+        const lang = language ?? "es";
+        
         try {
             const weatherRes = await fetch(
-                `https://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHERAPI_KEY}&q=${lat},${lon}&days=1`
+                `https://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHERAPI_KEY}&q=${lat},${lon}&days=1&lang=${lang}`
             );
             const weather = await weatherRes.json();
-
-            console.log("WeatherAPI response:", weather);
-
             const today = weather.forecast.forecastday[0].day;
+            const { emoji, icon } = getWeatherNotificationContent(today.condition.code);
 
             await messaging.send({
                 token,
                 notification: {
-                    title: `Clima en ${cityName}`,
-                    body: `Hoy ${Math.round(today.maxtemp_c)}°, ${today.condition.text}`,
+                    title: `${emoji} Clima en ${cityName}`,
+                    body: `¡Buen día! Hoy van a hacer ${Math.round(today.maxtemp_c)}° y el clima ${today.condition.text}`,
+                },
+                webpush: {
+                    notification: {
+                        icon,
+                    },
                 },
             });
+
 
             sent++;
         } catch (err: unknown) {

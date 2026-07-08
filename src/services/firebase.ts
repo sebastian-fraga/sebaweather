@@ -42,16 +42,19 @@ export function getStoredNotificationToken(): string | null {
 
 export async function saveNotificationSubscription(
     token: string,
-    city: { name: string; lat: number; lon: number }
+    city: { name: string; lat: number; lon: number },
+    language: "es" | "en"
 ) {
     await setDoc(doc(db, "subscriptions", token), {
         token,
         cityName: city.name,
         lat: city.lat,
         lon: city.lon,
+        language,
         createdAt: new Date().toISOString(),
     });
 }
+
 
 export async function deleteNotificationSubscription(token: string) {
     await deleteDoc(doc(db, "subscriptions", token));
