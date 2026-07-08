@@ -48,7 +48,7 @@ const initialState: AppState = {
         temperature: "celsius",
         wind: "kph",
         language: (i18n.language?.split("-")[0] as "es" | "en") || "es",
-        notificationsEnabled: true,
+        notificationsEnabled: false,
         timeFormat: "24hs",
     },
 };
