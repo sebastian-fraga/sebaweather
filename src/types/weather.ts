@@ -1,12 +1,3 @@
-export interface City {
-    id: number;
-    name: string;
-    region: string;
-    country: string;
-    lat: number;
-    lon: number;
-    url: string;
-}
 
 interface Location {
     name: string;
@@ -64,18 +55,18 @@ export interface ForecastResponse {
     };
 }
 
-export interface City {
-    id: number
-    name: string
-    lat: number
-    lon: number
-    country: string
-    region: string;
-    url: string;
-}
-
 export type FavoriteCity = City & {
     nickname?: string;
     backgroundTheme?: string;
     customBackground?: string;
 };
+
+export interface City {
+    id: number;
+    name: string;
+    region: string;
+    country: string;
+    lat: number;
+    lon: number;
+    url: string;
+}

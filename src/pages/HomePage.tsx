@@ -23,7 +23,7 @@ function HomePage() {
     const [query, setQuery] = useState("");
     const inputRef = useRef<HTMLInputElement>(null)
     const [isFocused, setIsFocused] = useState(false);
-
+    
     const handleCityClick = (city: City) => {
         addToHistory(city);
         navigate(`/home/city/${city.lat}/${city.lon}`, { state: city });

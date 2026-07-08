@@ -25,7 +25,8 @@ function CityPage() {
     const location = useLocation();
     const { preferences } = state;
 
-    const city = location.state as City | null;
+    const city = (location.state as City | null) ?? null;
+
 
     const [weather, setWeather] = useState<ForecastResponse | null>(null);
     const [loading, setLoading] = useState(true);
@@ -112,10 +113,17 @@ function CityPage() {
     const toggleFavorite = () => {
         if (!city) return;
 
-        dispatch({
-            type: isFavorite ? "REMOVE_FAVORITE" : "ADD_FAVORITE",
-            payload: city
-        });
+        if (isFavorite) {
+            dispatch({
+                type: "REMOVE_FAVORITE",
+                payload: { id: city.id },
+            });
+        } else {
+            dispatch({
+                type: "ADD_FAVORITE",
+                payload: city,
+            });
+        }
     };
 
     const currentTemp =
@@ -137,7 +145,7 @@ function CityPage() {
         <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }}>
 
-                <div className="w-full flex justify-between px-4 sm:px-10 md:px-20 lg:px-32 xl:px-50 mt-8 sm:mt-14 md:mt-22 mb-6 sm:mb-12 text-white city-button-wrapper">
+                <div className="w-full flex justify-between px-4 sm:px-10 md:px-20 lg:px-32 xl:px-50 mt-4 sm:mt-10 md:mt-16 mb-6 sm:mb-12 text-white city-button-wrapper">
                     <button className="bg-gray-200/30 rounded-3xl sm:rounded-4xl p-3 sm:p-4" onClick={() => navigate(-1)}>
                         <IconChevronLeft stroke={3} size={24} className="sm:w-8 sm:h-8" />
                     </button>
@@ -165,7 +173,7 @@ function CityPage() {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: -8, scale: 0.95 }}
                                     transition={{ duration: 0.15, ease: 'easeOut' }}
-                                    className="absolute right-0 mt-2 w-48 sm:w-56 bg-[#2a2438] rounded-xl sm:rounded-2xl shadow-lg overflow-hidden z-50"
+                                    className="absolute right-0 mt-2 w-52 sm:w-66 bg-[#2a2438] rounded-xl sm:rounded-2xl shadow-lg overflow-hidden z-50"
                                 >
                                     <button
                                         className="w-full flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 text-white hover:bg-white/10 transition-colors text-sm sm:text-base"
@@ -190,20 +198,22 @@ function CityPage() {
                     </div>
                 </div>
 
-                <main className="text-white flex flex-col justify-center items-center city-weather px-4">
+                <main className="text-white flex flex-col justify-center items-center city-weather px-4 mb-20">
                     <div className='flex items-center gap-4 sm:gap-7 mt-8 sm:mt-16'>
-                        {city?.country && (
-                            <img
-                                src={getFlagUrl(city.country)}
-                                alt={city.country}
-                                className="rounded-md w-12 h-8 sm:w-16 sm:h-10"
-                            />
-                        )}
+                        <img
+                            src={getFlagUrl(city?.country ?? weather.location.country)}
+                            alt={city?.country ?? weather.location.country}
+                            className="rounded-md w-12 h-8 sm:w-16 sm:h-10"
+                        />
+
                         <div className="flex items-center gap-2 sm:items-center text-2xl sm:text-3xl md:text-4xl">
-                            <h2 className='font-medium'>{city?.name},</h2>
-                            {city?.region && (
-                                <p className="font-light text-slate-100/80">{city.region}</p>
-                            )}
+                            <h2 className="font-medium">
+                                {city?.name ?? weather.location.name},
+                            </h2>
+
+                            <p className="font-light text-slate-100/80">
+                                {city?.region ?? weather.location.region}
+                            </p>
                         </div>
                     </div>
 
