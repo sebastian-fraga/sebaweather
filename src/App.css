@@ -42,3 +42,7 @@ body::selection {
         border: 1px solid rgba(0, 0, 0, 0.1);
     }
 }
+
+.settings-option:hover .settings-icon {
+    color: #fff;
+}

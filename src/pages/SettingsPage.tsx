@@ -26,14 +26,16 @@ export default function SettingsPage() {
     const [modalField, setModalField] = useState<Extract<SettingField, { type: "select" }> | null>(null);
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [statusAlert, setStatusAlert] = useState<{
-        type: "success" | "error";
-        message: string;
+        type: "success" | "error"
+        title: string
+        message: string
     } | null>(null);
     const showStatusAlert = (
         type: "success" | "error",
+        title: string,
         message: string
     ) => {
-        setStatusAlert({ type, message });
+        setStatusAlert({ type, title, message });
 
         setTimeout(() => {
             setStatusAlert(null);
@@ -51,12 +53,19 @@ export default function SettingsPage() {
                 if (!primaryCity) {
                     showStatusAlert(
                         "error",
+                        t("settings.notificationsEnabled.noCityErrorTitle"),
                         t("settings.notificationsEnabled.noCityError")
                     );
                     return;
                 }
+
+                dispatch({
+                    type: "SET_PREFERENCE",
+                    payload: { key: "notificationsEnabled", value: true },
+                });
                 showStatusAlert(
                     "success",
+                    t("settings.notificationsEnabled.successTitle"),
                     t("settings.notificationsEnabled.success")
                 );
 
@@ -64,6 +73,15 @@ export default function SettingsPage() {
                     .then((token) => {
                         if (!token) {
                             console.warn("Permiso de notificaciones denegado");
+                            dispatch({
+                                type: "SET_PREFERENCE",
+                                payload: { key: "notificationsEnabled", value: false },
+                            });
+                            showStatusAlert(
+                                "error",
+                                t("settings.notificationsEnabled.permissionErrorTitle"),
+                                t("settings.notificationsEnabled.permissionError")
+                            );
                             return;
                         }
 
@@ -75,29 +93,34 @@ export default function SettingsPage() {
                                 lon: primaryCity.lon,
                             },
                             preferences.language
-                        ).then(() => {
-                            dispatch({
-                                type: "SET_PREFERENCE",
-                                payload: { key: "notificationsEnabled", value: true },
-                            });
-                        });
+                        );
                     })
-                    .catch((err) => console.error("Error activando notificaciones:", err));
-            } else {
-                const token = getStoredNotificationToken();
-
-                const cleanup = token
-                    ? deleteNotificationSubscription(token)
-                    : Promise.resolve();
-
-                cleanup
-                    .catch((err) => console.error("Error desactivando notificaciones:", err))
-                    .finally(() => {
+                    .catch((err) => {
+                        console.error("Error activando notificaciones:", err);
                         dispatch({
                             type: "SET_PREFERENCE",
                             payload: { key: "notificationsEnabled", value: false },
                         });
+                        showStatusAlert(
+                            "error",
+                            t("settings.notificationsEnabled.saveErrorTitle"),
+                            t("settings.notificationsEnabled.saveError")
+                        );
                     });
+            } else {
+                dispatch({
+                    type: "SET_PREFERENCE",
+                    payload: { key: "notificationsEnabled", value: false },
+                });
+
+                const token = getStoredNotificationToken();
+                const cleanup = token
+                    ? deleteNotificationSubscription(token)
+                    : Promise.resolve();
+
+                cleanup.catch((err) =>
+                    console.error("Error desactivando notificaciones:", err)
+                );
             }
         } else if (field.type === "select") {
             setModalField(field);
@@ -139,7 +162,7 @@ export default function SettingsPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.05 }}
                                 onClick={() => handleFieldClick(field)}
-                                className="flex items-center justify-between rounded-xl px-4 py-3 cursor-pointer hover:bg-black/10 transition-colors"
+                                className="settings-option flex items-center justify-between rounded-xl px-4 py-3 cursor-pointer hover:bg-black/10 transition-colors"
                             >
                                 <div className="flex items-center gap-3">
                                     <field.icon
@@ -174,7 +197,8 @@ export default function SettingsPage() {
                                         </span>
                                         <motion.div
                                             animate={{ rotate: openField === field.key ? 90 : 0 }}
-                                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                            className='settings-icon'
                                         >
                                             <IconChevronRight size={18} />
                                         </motion.div>
@@ -192,7 +216,7 @@ export default function SettingsPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: (settingsConfig.length + i) * 0.05 }}
                                 onClick={() => handleLinkClick(link)}
-                                className="flex items-center justify-between rounded-xl px-4 py-3 cursor-pointer hover:bg-black/10 transition-colors"
+                                className="settings-option flex items-center justify-between rounded-xl px-4 py-3 cursor-pointer hover:bg-black/10 transition-colors"
                             >
                                 <div className="flex items-center gap-3">
                                     <link.icon
@@ -206,9 +230,9 @@ export default function SettingsPage() {
                                     </p>
                                 </div>
                                 {link.external ? (
-                                    <IconExternalLink size={18} className="text-white/80" />
+                                    <IconExternalLink size={18} className="settings-icon text-white/80" />
                                 ) : (
-                                    <IconChevronRight size={18} className="text-white/80" />
+                                    <IconChevronRight size={18} className="settings-icon text-white/80" />
                                 )}
                             </motion.div>
                         ))}
@@ -259,6 +283,7 @@ export default function SettingsPage() {
                 {statusAlert && (
                     <NotificationToggleStatus
                         type={statusAlert.type}
+                        title={statusAlert.title}
                         message={statusAlert.message}
                     />
                 )}

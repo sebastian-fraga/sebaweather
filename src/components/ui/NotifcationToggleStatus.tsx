@@ -2,23 +2,24 @@ import { motion } from "framer-motion";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
 type StatusAlertProps = {
-    type: "success" | "error";
+    type: "success" | "error"
+    title: string;
     message: string;
 };
 
-export function NotificationToggleStatus({ type, message }: StatusAlertProps) {
+export function NotificationToggleStatus({ type, title, message }: StatusAlertProps) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
             className={`
                 fixed
-                right-3
+                right-7
                 top-6
                 md:top-12
                 flex items-center gap-3
-                px-4 py-3
+                pl-3 pr-12 py-3
                 rounded-xl
                 text-white
                 shadow-lg
@@ -35,6 +36,7 @@ export function NotificationToggleStatus({ type, message }: StatusAlertProps) {
                     flex items-center justify-center
                     w-8 h-8
                     rounded-full
+                    shrink-0
                     ${type === "success"
                         ? "bg-green-500/30"
                         : "bg-red-500/30"
@@ -48,9 +50,14 @@ export function NotificationToggleStatus({ type, message }: StatusAlertProps) {
                 )}
             </div>
 
-            <span className="text-sm font-medium">
-                {message}
-            </span>
+            <div className="flex flex-col">
+                <span className="text-sm font-bold">
+                    {title}
+                </span>
+                <span className="text-sm font-thin opacity-95">
+                    {message}
+                </span>
+            </div>
         </motion.div>
     );
 }
