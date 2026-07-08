@@ -61,7 +61,8 @@ VITE_WEATHER_API_KEY=your_weatherapi_key_here
 
 ## 🗺️ Roadmap
 
-- [ ] Multi-language support
+- [x] Multi-language support (English/Spanish)
+  - More languages on the way! 
 - [ ] Weather alerts / notifications
 - [ ] PWA support (installable app)
 
