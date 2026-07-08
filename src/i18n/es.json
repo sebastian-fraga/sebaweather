@@ -50,7 +50,9 @@
         },
         "notificationsEnabled": {
             "label": "Notificaciones",
-            "description": "Pronóstico, alertas climáticas"
+            "description": "Pronóstico, alertas climáticas",
+            "noCityError": "No hay ciudades favoritas para notificar",
+            "success": "Notificaciones de pronóstico activadas"
         },
         "temperature": {
             "label": "Temperatura",

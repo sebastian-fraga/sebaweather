@@ -50,7 +50,9 @@
         },
         "notificationsEnabled": {
             "label": "Notifications",
-            "description": "Forecast, weather alerts"
+            "description": "Forecasts, weather alerts",
+            "noCityError": "There are no favorite cities to send notifications for",
+            "success": "Forecast notifications enabled"
         },
         "temperature": {
             "label": "Temperature",

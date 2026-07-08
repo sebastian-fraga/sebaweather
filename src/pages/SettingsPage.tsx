@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom';
 import { IconChevronRight, IconExternalLink } from '@tabler/icons-react';
 
@@ -12,6 +12,7 @@ import { requestNotificationToken, saveNotificationSubscription, getStoredNotifi
 import NavBar from '../components/ui/NavBar';
 import SettingsModal from '../components/ui/SettingsModal';
 import SettingsSection from '../components/ui/SettingsSection';
+import { NotificationToggleStatus } from '../components/ui/NotifcationToggleStatus';
 
 import "../styles/backgrounds.css";
 
@@ -24,8 +25,23 @@ export default function SettingsPage() {
     const [openField, setOpenField] = useState<string | null>(null);
     const [modalField, setModalField] = useState<Extract<SettingField, { type: "select" }> | null>(null);
     const [confirmDelete, setConfirmDelete] = useState(false);
+    const [statusAlert, setStatusAlert] = useState<{
+        type: "success" | "error";
+        message: string;
+    } | null>(null);
+    const showStatusAlert = (
+        type: "success" | "error",
+        message: string
+    ) => {
+        setStatusAlert({ type, message });
+
+        setTimeout(() => {
+            setStatusAlert(null);
+        }, 1700);
+    };
 
     const handleFieldClick = (field: (typeof settingsConfig)[number]) => {
+
         if (field.type === "toggle" && field.key === "notificationsEnabled") {
             const turningOn = !preferences.notificationsEnabled;
 
@@ -33,9 +49,16 @@ export default function SettingsPage() {
                 const primaryCity = state.favoriteCities[0];
 
                 if (!primaryCity) {
-                    alert(t("settings.notificationsEnabled.noCityError"));
+                    showStatusAlert(
+                        "error",
+                        t("settings.notificationsEnabled.noCityError")
+                    );
                     return;
                 }
+                showStatusAlert(
+                    "success",
+                    t("settings.notificationsEnabled.success")
+                );
 
                 requestNotificationToken()
                     .then((token) => {
@@ -227,6 +250,15 @@ export default function SettingsPage() {
                     }}
                 />
             )}
+
+            <AnimatePresence>
+                {statusAlert && (
+                    <NotificationToggleStatus
+                        type={statusAlert.type}
+                        message={statusAlert.message}
+                    />
+                )}
+            </AnimatePresence>
         </>
     );
 }
