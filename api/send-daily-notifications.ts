@@ -3,7 +3,7 @@ import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { getMessaging } from "firebase-admin/messaging";
 
-import { getWeatherNotificationContent } from "../src/utils/weatherIcons";
+import { getWeatherNotificationContent } from "./_lib/weatherIcons";
 
 if (!getApps().length) {
     initializeApp({
@@ -36,7 +36,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     for (const docSnap of subscriptions.docs) {
         const { token, lat, lon, cityName, language } = docSnap.data();
         const lang = language ?? "es";
-        
+
         try {
             const weatherRes = await fetch(
                 `https://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHERAPI_KEY}&q=${lat},${lon}&days=1&lang=${lang}`
