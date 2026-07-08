@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getMessaging, getToken } from "firebase/messaging";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { getFirestore, doc, setDoc, deleteDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -59,4 +59,13 @@ export async function saveNotificationSubscription(
 export async function deleteNotificationSubscription(token: string) {
     await deleteDoc(doc(db, "subscriptions", token));
     localStorage.removeItem(TOKEN_STORAGE_KEY);
+}
+
+export function listenForegroundMessages() {
+    onMessage(messaging, (payload) => {
+        const { title, body, icon } = payload.data ?? {};
+        if (title) {
+            new Notification(title, { body, icon: icon || "/assets/icons/fallback.png", });
+        }
+    });
 }

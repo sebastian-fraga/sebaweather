@@ -15,7 +15,7 @@ export function NotificationToggleStatus({ type, message }: StatusAlertProps) {
             className={`
                 fixed
                 right-3
-                top-30
+                top-6
                 md:top-12
                 flex items-center gap-3
                 px-4 py-3

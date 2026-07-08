@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
+import { listenForegroundMessages } from "./services/firebase";
+
 import WelcomePage from "./pages/WelcomePage";
 import HomePage from "./pages/HomePage";
 import CityPage from "./pages/CityPage";
@@ -42,7 +44,12 @@ function AnimatedRoutes() {
 }
 
 function App() {
+  useEffect(() => {
+    listenForegroundMessages();
+  }, []);
+
   return (
+
     <BrowserRouter>
       <AnimatedRoutes />
     </BrowserRouter>

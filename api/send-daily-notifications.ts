@@ -47,19 +47,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
             await messaging.send({
                 token,
-                notification: {
+                data: {
                     title: `${emoji} Clima en ${cityName}`,
                     body: `¡Buen día! Hoy van a hacer ${Math.round(today.maxtemp_c)}° y el clima ${today.condition.text}`,
-                },
-                webpush: {
-                    notification: {
-                        icon,
-                    },
+                    icon,
                 },
             });
 
-
             sent++;
+
         } catch (err: unknown) {
             failed++;
             console.error(`Error notificando a ${cityName}:`, err);
