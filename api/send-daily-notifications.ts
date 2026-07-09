@@ -21,10 +21,11 @@ const messaging = getMessaging();
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     const authHeader = req.headers.authorization;
 
-    if (
-        process.env.CRON_SECRET &&
-        authHeader !== `Bearer ${process.env.CRON_SECRET}`
-    ) {
+    if (!process.env.CRON_SECRET) {
+        return res.status(500).json({ error: "Missing CRON_SECRET" });
+    }
+
+    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
         return res.status(401).json({ error: "Unauthorized" });
     }
 
@@ -44,23 +45,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             timezone,
         } = docSnap.data();
 
-        
+
         const lang = language ?? "es";
-        
+
         const currentTime = new Date().toLocaleTimeString("es-AR", {
             timeZone: timezone ?? "UTC",
             hour: "2-digit",
             minute: "2-digit",
             hour12: false,
-        });
-        
+        }).padStart(5, "0");
+
         console.log({
             cityName,
             timezone,
             notificationTime,
             currentTime,
         });
-        
+
         if (notificationTime !== currentTime) {
             continue;
         }
