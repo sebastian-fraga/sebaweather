@@ -32,7 +32,7 @@ export default function NotificationsPanel({ onClose }: Props) {
         message: string;
     } | null>(null);
 
-    const [timeModalCity, setTimeModalCity] = useState<FavoriteCity | null>(null);
+    const [timeModalCityId, setTimeModalCityId] = useState<number | null>(null);
 
     const showStatusAlert = (type: "success" | "error", title: string, message: string) => {
         setStatusAlert({ type, title, message });
@@ -125,7 +125,7 @@ export default function NotificationsPanel({ onClose }: Props) {
             payload: { id: city.id, data: { notificationTime: time } },
         });
 
-        setTimeModalCity(null);
+        setTimeModalCityId(null);
 
         const token = getStoredNotificationToken();
         if (!token) return;
@@ -147,6 +147,10 @@ export default function NotificationsPanel({ onClose }: Props) {
         }
     };
 
+    const timeModalCity = favoriteCities.find(
+        city => city.id === timeModalCityId
+    );
+
 
     return (
         <motion.div
@@ -165,7 +169,7 @@ export default function NotificationsPanel({ onClose }: Props) {
                 </h2>
             </div>
 
-            <div className="flex-1 px-4 sm:px-8 pb-8 flex flex-col items-center">
+            <div className="flex-1 px-4 sm:px-8 pb-8 mt-6 flex flex-col items-center">
                 {favoriteCities.length === 0 ? (
                     <div className="h-full my-auto flex flex-col items-center justify-center gap-3 text-center text-white/60">
                         <IconBellOff size={44} stroke={1.5} className="animate-pulse" />
@@ -219,7 +223,7 @@ export default function NotificationsPanel({ onClose }: Props) {
                                                 <motion.button
                                                     whileHover={{ background: "rgba(255,255,255,0.1)", color: "white" }}
                                                     whileTap={{ scale: 0.98 }}
-                                                    onClick={() => setTimeModalCity(city)}
+                                                    onClick={() => setTimeModalCityId(city.id)}
                                                     className="
                                                         flex items-center gap-2.5 px-3 py-1.5 rounded-xl
                                                         bg-white/5 border border-white/5
@@ -247,7 +251,7 @@ export default function NotificationsPanel({ onClose }: Props) {
             <NotificationTimePickerModal
                 key="global-time-picker-modal"
                 isOpen={!!timeModalCity}
-                onClose={() => setTimeModalCity(null)}
+                onClose={() => setTimeModalCityId(null)}
                 selected={timeModalCity?.notificationTime || DEFAULT_TIME}
                 onSelect={(time) => {
                     if (timeModalCity) {

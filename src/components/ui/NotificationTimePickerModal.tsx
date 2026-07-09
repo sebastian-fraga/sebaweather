@@ -23,12 +23,20 @@ export default function NotificationTimePickerModal({
 
     const { t } = useTranslation()
 
-    const initialTime = {
+    const [time, setTime] = useState({
         hour: selected?.split(":")[0] || "08",
         minute: selected?.split(":")[1] || "00",
-    };
+    });
 
-    const [time, setTime] = useState(initialTime);
+    useEffect(() => {
+        if (isOpen) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setTime({
+                hour: selected.split(":")[0],
+                minute: selected.split(":")[1],
+            });
+        }
+    }, [isOpen, selected]);
 
     const hours = ["06", "07", "08", "09"];
     const minutes = ["00", "15", "30", "45"];
