@@ -4,7 +4,7 @@ import {
     IconWind,
     IconLanguage,
     IconBell,
-    IconStarOff,
+    IconStarOff
 } from "@tabler/icons-react";
 
 export type SettingField =
@@ -30,9 +30,15 @@ export type SettingField =
         options: { value: "es" | "en" }[];
     }
     | {
+        key: "notificationTime";
+        icon: Icon;
+        type: "time";
+        wip?: boolean;
+    }
+    | {
         key: "notificationsEnabled";
         icon: Icon;
-        type: "toggle";
+        type: "navigate";
         wip?: boolean;
         hasDescription?: boolean;
     }
@@ -55,8 +61,7 @@ export const settingsConfig: SettingField[] = [
     {
         key: "notificationsEnabled",
         icon: IconBell,
-        type: "toggle",
-        wip: true,
+        type: "navigate",
         hasDescription: true,
     },
     {
@@ -78,4 +83,5 @@ export const settingsConfig: SettingField[] = [
         destructive: true,
         hasDescription: true,
     },
+
 ];

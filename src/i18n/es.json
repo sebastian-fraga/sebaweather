@@ -52,10 +52,18 @@
         "notificationsEnabled": {
             "label": "Notificaciones",
             "description": "Pronóstico, alertas climáticas",
-            "noCityError": "No hay ciudades favoritas para notificar",
-            "noCityErrorTitle": "Error",
+            "cityEnabled": "Notificaciones activadas para {{city}}",
             "successTitle": "Activado",
-            "success": "Notificaciones de pronóstico activadas"
+            "permissionErrorTitle": "Permiso denegado",
+            "permissionError": "Activa los permisos de notificaciones en tu navegador",
+            "saveErrorTitle": "Error",
+            "saveError": "No se pudo guardar la suscripción, intenta de nuevo"
+        },
+        "notificationsPanel": {
+            "manageTitle": "Notificaciones por ciudad",
+            "noFavoritesYet": "Agrega ciudades a favoritos para activar sus notificaciones",
+            "timeLabel": "Horario de notificación",
+            "button": "Confirmar"
         },
         "temperature": {
             "label": "Temperatura",

@@ -45,23 +45,25 @@ export function getStoredNotificationToken(): string | null {
 
 export async function saveNotificationSubscription(
     token: string,
-    city: { name: string; lat: number; lon: number },
-    language: "es" | "en"
+    city: { id: number; name: string; lat: number; lon: number, timezone?: string },
+    language: "es" | "en",
+    notificationTime: string
 ) {
-    await setDoc(doc(db, "subscriptions", token), {
+    await setDoc(doc(db, "subscriptions", `${token}_${city.id}`), {
         token,
+        cityId: city.id,
         cityName: city.name,
         lat: city.lat,
         lon: city.lon,
         language,
+        notificationTime,
         createdAt: new Date().toISOString(),
+        timezone: city.timezone ?? "America/Argentina/Buenos_Aires",
     });
 }
 
-
-export async function deleteNotificationSubscription(token: string) {
-    await deleteDoc(doc(db, "subscriptions", token));
-    localStorage.removeItem(TOKEN_STORAGE_KEY);
+export async function deleteNotificationSubscription(token: string, cityId: number) {
+    await deleteDoc(doc(db, "subscriptions", `${token}_${cityId}`));
 }
 
 export function listenForegroundMessages() {

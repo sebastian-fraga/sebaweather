@@ -51,11 +51,19 @@
         },
         "notificationsEnabled": {
             "label": "Notifications",
-            "description": "Forecasts, weather alerts",
-            "noCityError": "No favorite cities to notify",
-            "noCityErrorTitle": "Error",
-            "successTitle": "Enabled",
-            "success": "Forecast notifications enabled"
+            "description": "Forecast, weather alerts",
+            "cityEnabled": "Notifications enabled for {{city}}",
+            "successTitle": "Success",
+            "permissionErrorTitle": "Permission denied",
+            "permissionError": "Enable notification permissions in your browser",
+            "saveErrorTitle": "Error",
+            "saveError": "Could not save the subscription, please try again"
+        },
+        "notificationsPanel": {
+            "manageTitle": "Notifications by city",
+            "noFavoritesYet": "Add cities to your favorites to enable their notifications",
+            "timeLabel": "Notification time",
+            "button": "Confirm"
         },
         "temperature": {
             "label": "Temperature",

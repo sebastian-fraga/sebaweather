@@ -59,6 +59,9 @@ export type FavoriteCity = City & {
     nickname?: string;
     backgroundTheme?: string;
     customBackground?: string;
+    notificationsEnabled?: boolean;
+    notificationTime?: string;
+    timezone?: string
 };
 
 export interface City {

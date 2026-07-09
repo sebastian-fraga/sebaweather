@@ -7,12 +7,11 @@ import { IconChevronRight, IconExternalLink } from '@tabler/icons-react';
 import { settingsConfig, type SettingField } from "../config/settingsConfig";
 import { linksConfig } from '../config/linksConfig';
 import { useApp } from '../context/AppContext';
-import { requestNotificationToken, saveNotificationSubscription, getStoredNotificationToken, deleteNotificationSubscription } from "../services/firebase";
 
 import NavBar from '../components/ui/NavBar';
 import SettingsModal from '../components/ui/SettingsModal';
 import SettingsSection from '../components/ui/SettingsSection';
-import { NotificationToggleStatus } from '../components/ui/NotifcationToggleStatus';
+import NotificationsPanel from '../components/ui/NotificationsPanel';
 
 import "../styles/backgrounds.css";
 
@@ -23,105 +22,15 @@ export default function SettingsPage() {
     const navigate = useNavigate();
 
     const [openField, setOpenField] = useState<string | null>(null);
-    const [modalField, setModalField] = useState<Extract<SettingField, { type: "select" }> | null>(null);
+    const [modalField, setModalField] = useState<
+        Extract<SettingField, { type: "select" }> | null
+    >(null);
     const [confirmDelete, setConfirmDelete] = useState(false);
-    const [statusAlert, setStatusAlert] = useState<{
-        type: "success" | "error"
-        title: string
-        message: string
-    } | null>(null);
-    const showStatusAlert = (
-        type: "success" | "error",
-        title: string,
-        message: string
-    ) => {
-        setStatusAlert({ type, title, message });
-
-        setTimeout(() => {
-            setStatusAlert(null);
-        }, 1700);
-    };
+    const [notificationsPanelOpen, setNotificationsPanelOpen] = useState(false);
 
     const handleFieldClick = (field: (typeof settingsConfig)[number]) => {
-
-        if (field.type === "toggle" && field.key === "notificationsEnabled") {
-            const turningOn = !preferences.notificationsEnabled;
-
-            if (turningOn) {
-                const primaryCity = state.favoriteCities[0];
-
-                if (!primaryCity) {
-                    showStatusAlert(
-                        "error",
-                        t("settings.notificationsEnabled.noCityErrorTitle"),
-                        t("settings.notificationsEnabled.noCityError")
-                    );
-                    return;
-                }
-
-                dispatch({
-                    type: "SET_PREFERENCE",
-                    payload: { key: "notificationsEnabled", value: true },
-                });
-                showStatusAlert(
-                    "success",
-                    t("settings.notificationsEnabled.successTitle"),
-                    t("settings.notificationsEnabled.success")
-                );
-
-                requestNotificationToken()
-                    .then((token) => {
-                        if (!token) {
-                            console.warn("Permiso de notificaciones denegado");
-                            dispatch({
-                                type: "SET_PREFERENCE",
-                                payload: { key: "notificationsEnabled", value: false },
-                            });
-                            showStatusAlert(
-                                "error",
-                                t("settings.notificationsEnabled.permissionErrorTitle"),
-                                t("settings.notificationsEnabled.permissionError")
-                            );
-                            return;
-                        }
-
-                        return saveNotificationSubscription(
-                            token,
-                            {
-                                name: primaryCity.name,
-                                lat: primaryCity.lat,
-                                lon: primaryCity.lon,
-                            },
-                            preferences.language
-                        );
-                    })
-                    .catch((err) => {
-                        console.error("Error activando notificaciones:", err);
-                        dispatch({
-                            type: "SET_PREFERENCE",
-                            payload: { key: "notificationsEnabled", value: false },
-                        });
-                        showStatusAlert(
-                            "error",
-                            t("settings.notificationsEnabled.saveErrorTitle"),
-                            t("settings.notificationsEnabled.saveError")
-                        );
-                    });
-            } else {
-                dispatch({
-                    type: "SET_PREFERENCE",
-                    payload: { key: "notificationsEnabled", value: false },
-                });
-
-                const token = getStoredNotificationToken();
-                const cleanup = token
-                    ? deleteNotificationSubscription(token)
-                    : Promise.resolve();
-
-                cleanup.catch((err) =>
-                    console.error("Error desactivando notificaciones:", err)
-                );
-            }
+        if (field.type === "navigate" && field.key === "notificationsEnabled") {
+            setNotificationsPanelOpen(true);
         } else if (field.type === "select") {
             setModalField(field);
             setOpenField(field.key);
@@ -162,7 +71,7 @@ export default function SettingsPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.05 }}
                                 onClick={() => handleFieldClick(field)}
-                                className="settings-option flex items-center justify-between rounded-xl px-4 py-3 cursor-pointer hover:bg-black/10 transition-colors"
+                                className="flex items-center justify-between rounded-xl px-4 py-3 cursor-pointer hover:bg-black/10 transition-colors"
                             >
                                 <div className="flex items-center gap-3">
                                     <field.icon
@@ -186,8 +95,8 @@ export default function SettingsPage() {
                                     </div>
                                 </div>
 
-                                {field.type === "toggle" && (
-                                    <ToggleSwitch checked={preferences[field.key] as boolean} />
+                                {field.type === "navigate" && (
+                                    <IconChevronRight size={20} className="text-white/80" />
                                 )}
 
                                 {field.type === "select" && (
@@ -197,8 +106,7 @@ export default function SettingsPage() {
                                         </span>
                                         <motion.div
                                             animate={{ rotate: openField === field.key ? 90 : 0 }}
-                                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                                            className='settings-icon'
+                                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
                                         >
                                             <IconChevronRight size={18} />
                                         </motion.div>
@@ -216,7 +124,7 @@ export default function SettingsPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: (settingsConfig.length + i) * 0.05 }}
                                 onClick={() => handleLinkClick(link)}
-                                className="settings-option flex items-center justify-between rounded-xl px-4 py-3 cursor-pointer hover:bg-black/10 transition-colors"
+                                className="flex items-center justify-between rounded-xl px-4 py-3 cursor-pointer hover:bg-black/10 transition-colors"
                             >
                                 <div className="flex items-center gap-3">
                                     <link.icon
@@ -230,9 +138,9 @@ export default function SettingsPage() {
                                     </p>
                                 </div>
                                 {link.external ? (
-                                    <IconExternalLink size={18} className="settings-icon text-white/80" />
+                                    <IconExternalLink size={18} className="text-white/80" />
                                 ) : (
-                                    <IconChevronRight size={18} className="settings-icon text-white/80" />
+                                    <IconChevronRight size={18} className="text-white/80" />
                                 )}
                             </motion.div>
                         ))}
@@ -263,47 +171,32 @@ export default function SettingsPage() {
                 />
             )}
 
-            {confirmDelete && (
-                <SettingsModal
-                    isOpen={confirmDelete}
-                    onClose={() => setConfirmDelete(false)}
-                    title={t("settings.clearFavorites.label")}
-                    options={[
-                        { value: true, label: t("settings.clearFavorites.confirm") },
-                        { value: false, label: t("settings.clearFavorites.cancel") },
-                    ]}
-                    selected={null}
-                    onSelect={(value) => {
-                        if (value) dispatch({ type: "CLEAR_FAVORITES" });
-                    }}
-                />
-            )}
+            <SettingsModal
+                isOpen={confirmDelete}
+                onClose={() => setConfirmDelete(false)}
+                title={t("settings.clearFavorites.label")}
+                options={[
+                    {
+                        value: true,
+                        label: t("settings.clearFavorites.confirm"),
+                        isDestructive: true
+                    },
+                    {
+                        value: false,
+                        label: t("settings.clearFavorites.cancel")
+                    },
+                ]}
+                selected={null}
+                onSelect={(value) => {
+                    if (value) dispatch({ type: "CLEAR_FAVORITES" });
+                }}
+            />
 
             <AnimatePresence>
-                {statusAlert && (
-                    <NotificationToggleStatus
-                        type={statusAlert.type}
-                        title={statusAlert.title}
-                        message={statusAlert.message}
-                    />
+                {notificationsPanelOpen && (
+                    <NotificationsPanel onClose={() => setNotificationsPanelOpen(false)} />
                 )}
             </AnimatePresence>
         </>
-    );
-}
-
-function ToggleSwitch({ checked }: { checked: boolean }) {
-    return (
-        <div
-            className={`relative h-6 w-11 rounded-full transition-colors ${checked ? "bg-indigo-500" : "bg-white/20"}`}
-            aria-checked={checked}
-            role="switch"
-        >
-            <motion.span
-                className="absolute top-0.5 h-5 w-5 rounded-full bg-white"
-                animate={{ left: checked ? 22 : 2 }}
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
-            />
-        </div>
     );
 }

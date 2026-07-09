@@ -34,16 +34,49 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let failed = 0;
 
     for (const docSnap of subscriptions.docs) {
-        const { token, lat, lon, cityName, language } = docSnap.data();
+        const {
+            token,
+            lat,
+            lon,
+            cityName,
+            language,
+            notificationTime,
+            timezone,
+        } = docSnap.data();
+
+        
         const lang = language ?? "es";
+        
+        const currentTime = new Date().toLocaleTimeString("es-AR", {
+            timeZone: timezone ?? "UTC",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+        });
+        
+        console.log({
+            cityName,
+            timezone,
+            notificationTime,
+            currentTime,
+        });
+        
+        if (notificationTime !== currentTime) {
+            continue;
+        }
 
         try {
             const weatherRes = await fetch(
                 `https://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHERAPI_KEY}&q=${lat},${lon}&days=1&lang=${lang}`
             );
+
             const weather = await weatherRes.json();
+
             const today = weather.forecast.forecastday[0].day;
-            const { emoji, icon } = getWeatherNotificationContent(today.condition.code);
+
+            const { emoji, icon } = getWeatherNotificationContent(
+                today.condition.code
+            );
 
             await messaging.send({
                 token,
@@ -58,9 +91,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         } catch (err: unknown) {
             failed++;
+
             console.error(`Error notificando a ${cityName}:`, err);
 
             const code = (err as { code?: string })?.code;
+
             if (
                 code === "messaging/invalid-registration-token" ||
                 code === "messaging/registration-token-not-registered"
@@ -70,5 +105,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }
     }
 
-    res.status(200).json({ sent, failed, total: subscriptions.size });
+    res.status(200).json({
+        sent,
+        failed,
+        total: subscriptions.size,
+    });
 }

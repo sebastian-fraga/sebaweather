@@ -54,7 +54,7 @@ export function NotificationToggleStatus({ type, title, message }: StatusAlertPr
                 <span className="text-sm font-bold">
                     {title}
                 </span>
-                <span className="text-sm font-thin opacity-95">
+                <span className="text-sm font-light">
                     {message}
                 </span>
             </div>
