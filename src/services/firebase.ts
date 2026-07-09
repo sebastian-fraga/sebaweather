@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { getMessaging, getToken, onMessage, isSupported, type Messaging } from "firebase/messaging";
 import { getFirestore, doc, setDoc, deleteDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -13,13 +13,22 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const messaging = getMessaging(app);
+
+export let messaging: Messaging | null = null;
 export const db = getFirestore(app);
+
+isSupported().then((supported) => {
+    if (supported) {
+        messaging = getMessaging(app);
+    }
+});
 
 const VAPID_KEY = import.meta.env.VITE_VAPID_KEY;
 const TOKEN_STORAGE_KEY = "sebaweather:fcm-token";
 
 export async function requestNotificationToken(): Promise<string | null> {
+    if (!messaging) return null;
+
     const permission = await Notification.requestPermission();
     if (permission !== "granted") return null;
 
@@ -38,6 +47,7 @@ export async function requestNotificationToken(): Promise<string | null> {
 
     return token;
 }
+
 
 export function getStoredNotificationToken(): string | null {
     return localStorage.getItem(TOKEN_STORAGE_KEY);
@@ -67,10 +77,16 @@ export async function deleteNotificationSubscription(token: string, cityId: numb
 }
 
 export function listenForegroundMessages() {
+    if (!messaging) return;
+
     onMessage(messaging, (payload) => {
         const { title, body, icon } = payload.data ?? {};
+
         if (title) {
-            new Notification(title, { body, icon: icon || "/assets/icons/fallback.png", });
+            new Notification(title, {
+                body,
+                icon: icon || "/assets/icons/fallback.png",
+            });
         }
     });
 }

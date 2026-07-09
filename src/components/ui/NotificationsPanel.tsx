@@ -158,7 +158,7 @@ export default function NotificationsPanel({ onClose }: Props) {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed inset-0 flex flex-col bg-linear-150 from-purple-950 via-indigo-950 to-black overflow-y-auto"
+            className="fixed inset-0 h-dvh flex flex-col bg-linear-150 from-purple-950 via-indigo-950 to-black overflow-hidden"
         >
             <div className="flex items-center gap-6 px-4 pt-4 sm:pt-12 sm:px-8">
                 <button className="bg-gray-200/30 rounded-3xl sm:rounded-4xl p-3 sm:p-4 text-white hover:bg-purple-300/80 cursor-pointer transition-all" onClick={(onClose)}>
@@ -169,7 +169,7 @@ export default function NotificationsPanel({ onClose }: Props) {
                 </h2>
             </div>
 
-            <div className="flex-1 px-4 sm:px-8 pb-8 mt-6 flex flex-col items-center">
+            <div className="flex-1 overflow-y-auto px-4 sm:px-8 pb-8 mt-6 flex flex-col items-center">
                 {favoriteCities.length === 0 ? (
                     <div className="h-full my-auto flex flex-col items-center justify-center gap-3 text-center text-white/60">
                         <IconBellOff size={44} stroke={1.5} className="animate-pulse" />
