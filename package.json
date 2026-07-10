@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "pnpm run generate:sitemap && tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:sitemap": "node ./public/assets/scripts/generate-sitemap.js"
   },
   "dependencies": {
     "@tabler/icons-react": "^3.44.0",
@@ -25,6 +26,7 @@
     "react-i18next": "^17.0.8",
     "react-mobile-picker": "^1.2.0",
     "react-router-dom": "^7.18.1",
+    "sitemap": "^9.0.1",
     "tailwindcss": "^4.3.2"
   },
   "devDependencies": {
