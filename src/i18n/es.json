@@ -83,7 +83,7 @@
             "cancel": "Cancelar"
         },
         "privacy": {
-            "label": "Privacidad"
+            "label": "Política de privacidad"
         },
         "about": {
             "label": "Acerca de"
@@ -93,6 +93,76 @@
         },
         "donate": {
             "label": "Donar"
+        }
+    },
+    "privacy": {
+        "title": "Política de privacidad",
+        "lastUpdate": {
+            "title": "Última actualización: ",
+            "date": "julio de 2026"
+        },
+        "startParagraph": "Esta Política de Privacidad describe qué información recopila SebaWeather (\"la App\", \"nosotros\"), cómo la usamos y qué opciones tienes al respecto. Al usar SebaWeather, aceptas las prácticas descritas aquí.",
+        "firstItem": {
+            "title": "1. Información recopilada",
+            "startParagraph": "Para brindar el servicio de notificaciones del clima, recopilamos y almacenamos en Firebase (Firestore) los siguientes datos:",
+            "firstListItem": {
+                "title": "Ciudades favoritas:",
+                "paragraph": "las ciudades que agregas para hacer seguimiento del clima o recibir notificaciones."
+            },
+            "secondListItem": {
+                "title": "Token de FCM (Firebase Cloud Messaging):",
+                "paragraph": "un identificador único generado por tu navegador/dispositivo que nos permite enviarte notificaciones push. Este token no contiene información personal identificable por sí misma."
+            },
+            "thirdListItem": {
+                "title": "Idioma preferido:",
+                "paragraph": "el idioma configurado en la App para mostrarte el contenido correctamente."
+            },
+            "fourthListItem": {
+                "title": "Horarios de notificación:",
+                "paragraph": "las franjas horarias que configuras para recibir alertas del clima de tus ciudades favoritas."
+            },
+            "fifthListItem": {
+                "title": "Fecha y hora de alta:",
+                "paragraph": "el momento en que agregaste una ciudad o suscripción, usado para ordenar y administrar tus preferencias."
+            },
+            "lastParagraph": "No recopilamos nombres, direcciones de email, números de teléfono ni ningún otro dato personal identificable."
+        },
+        "secondItem": {
+            "title": "2. Cómo usamos esta información",
+            "startParagraph": "Usamos los datos exclusivamente para:",
+            "firstListItem": "Enviarte notificaciones push sobre el clima de tus ciudades favoritas, en los horarios configurados.",
+            "secondListItem": "Mostrar la App en tu idioma de preferencia.",
+            "thirdListItem": "Mantener sincronizadas tus ciudades favoritas y su configuración entre sesiones.",
+            "fourthListItem": "Diagnosticar errores técnicos relacionados con el envío de notificaciones (por ejemplo, tokens inválidos o expirados).",
+            "lastParagraph": "No vendemos, alquilamos ni compartimos esta información con terceros con fines comerciales o publicitarios."
+        },
+        "thirdItem": {
+            "title": "3. Dónde se almacenan los datos",
+            "startParagraph": "Los datos se almacenan en",
+            "firstSpan": "y se gestionan mediante",
+            "secondSpan": "servicios provistos por Google. El envío de notificaciones programadas se ejecuta mediante una función automatizada (cron job) alojada en",
+            "lastParagraph": "Google/Firebase puede procesar estos datos según su propia política de privacidad, disponible en"
+        },
+        "fourthItem": {
+            "title": "4. Retención de datos",
+            "paragraph": "Conservamos tus ciudades favoritas, token de FCM, idioma y horarios de notificación mientras mantengas la suscripción activa. Si eliminas una ciudad favorita, desactivas las notificaciones o el token de FCM deja de ser válido (por ejemplo, desinstalando la App, borrando los datos del navegador o revocando los permisos de notificaciones), el registro correspondiente quedará obsoleto."
+        },
+        "fifthItem": {
+            "title": "5. Tus derechos y opciones",
+            "startParagraph": "Puedes en cualquier momento:",
+            "firstItem": "Eliminar una ciudad favorita desde la App, lo que borrará su registro asociado en Firestore.",
+            "secondItem": "Desactivar las notificaciones push desde la configuración de tu navegador/dispositivo o desde la propia App.",
+            "thirdItem": "Cambiar el idioma de la App en cualquier momento.",
+            "fourthItem": "Solicitar la eliminación total de los datos almacenados escribiendo a",
+            "fourthItem.cont": "con el nombre de la ciudad guardada y la fecha cercana a cuando fue puesta en favoritos."
+        },
+        "sixthItem": {
+            "title": "6. Cambios en esta política",
+            "paragraph": "Podemos actualizar esta Política de Privacidad ocasionalmente. Los cambios se reflejarán con una nueva fecha de \"Última actualización\" en la parte superior de esta página."
+        },
+        "seventhItem": {
+            "title": "7. Contacto",
+            "paragraph": "Si tienes más dudas o preguntas sobre esta Política de Privacidad, puedes enviar un correo electrónico a"
         }
     },
     "navbar": {

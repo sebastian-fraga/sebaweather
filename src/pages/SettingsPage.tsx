@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom';
 import { IconChevronRight, IconExternalLink } from '@tabler/icons-react';
 
 import { settingsConfig, type SettingField } from "../config/settingsConfig";
-import { linksConfig } from '../config/linksConfig';
+import { linksConfig, type LinkField } from "../config/linksConfig";
 import { useApp } from '../context/AppContext';
 
 import NavBar from '../components/ui/NavBar';
 import SettingsModal from '../components/ui/SettingsModal';
 import SettingsSection from '../components/ui/SettingsSection';
 import NotificationsPanel from '../components/ui/NotificationsPanel';
+import PrivacyPanel from '../components/ui/PrivacyPanel';
+import AboutPanel from '../components/ui/AboutPanel';
 
 import "../styles/backgrounds.css";
 
@@ -19,7 +20,6 @@ export default function SettingsPage() {
     const { t } = useTranslation();
     const { state, dispatch } = useApp();
     const { preferences } = state;
-    const navigate = useNavigate();
 
     const [openField, setOpenField] = useState<string | null>(null);
     const [modalField, setModalField] = useState<
@@ -39,17 +39,22 @@ export default function SettingsPage() {
         }
     };
 
-    const handleLinkClick = (link: (typeof linksConfig)[number]) => {
-        if (link.external) {
-            const a = document.createElement("a");
-            a.href = link.href;
-            a.target = "_blank";
-            a.rel = "noopener noreferrer";
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-        } else {
-            navigate(link.href);
+    const [privacyOpen, setPrivacyOpen] = useState(false);
+    const [aboutOpen, setAboutOpen] = useState(false);
+
+    const handleLinkClick = (link: LinkField) => {
+        switch (link.key) {
+            case "privacy":
+                setPrivacyOpen(true);
+                return;
+
+            case "about":
+                setAboutOpen(true);
+                return;
+        }
+
+        if (link.external && link.href) {
+            window.open(link.href, "_blank", "noopener,noreferrer");
         }
     };
 
@@ -134,7 +139,6 @@ export default function SettingsPage() {
                                     />
                                     <p className="font-medium text-white">
                                         {t(`settings.${link.key}.label`)}
-                                        {link.wip ? " 🚧" : ""}
                                     </p>
                                 </div>
                                 {link.external ? (
@@ -195,6 +199,18 @@ export default function SettingsPage() {
             <AnimatePresence>
                 {notificationsPanelOpen && (
                     <NotificationsPanel onClose={() => setNotificationsPanelOpen(false)} />
+                )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {privacyOpen && (
+                    <PrivacyPanel onClose={() => setPrivacyOpen(false)} />
+                )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {aboutOpen && (
+                    <AboutPanel onClose={() => setAboutOpen(false)} />
                 )}
             </AnimatePresence>
         </>

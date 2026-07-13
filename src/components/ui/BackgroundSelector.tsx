@@ -27,11 +27,11 @@ export default function BackgroundSelector({
                     disabled={!hasWikipediaImage}
                     onClick={() => onSelect("wikipedia")}
                     className={`group relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 shrink-0 rounded-full overflow-visible flex items-center justify-center transition-all
-${selected === "wikipedia"
+                        ${selected === "wikipedia"
                             ? "ring-3 sm:ring-4 ring-purple-400 scale-105"
                             : ""
                         }
-${hasWikipediaImage
+                        ${hasWikipediaImage
                             ? "bg-zinc-800 hover:scale-105 cursor-pointer"
                             : "bg-zinc-800 opacity-40 cursor-not-allowed"
                         }`}

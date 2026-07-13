@@ -9,23 +9,18 @@ import type { Icon } from "@tabler/icons-react";
 export interface LinkField {
     key: string;
     icon: Icon;
-    href: string;
+    href?: string;
     external?: boolean;
-    wip?: boolean;
 }
 
 export const linksConfig: LinkField[] = [
     {
         key: "privacy",
         icon: IconShieldLock,
-        href: "",
-        wip: true,
     },
     {
         key: "about",
         icon: IconInfoCircle,
-        href: "",
-        wip: true,
     },
     {
         key: "github",

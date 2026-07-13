@@ -12,6 +12,8 @@ import {
     getStoredNotificationToken,
 } from "../../services/firebase";
 import type { FavoriteCity } from "../../types/weather";
+
+import SlidePanel from "../layout/SlidePanel.tsx"
 import { NotificationToggleStatus } from "./NotificationToggleStatus";
 import NotificationTimePickerModal from "./NotificationTimePickerModal";
 
@@ -153,13 +155,7 @@ export default function NotificationsPanel({ onClose }: Props) {
 
 
     return (
-        <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed inset-0 h-dvh flex flex-col bg-linear-150 from-purple-950 via-indigo-950 to-black overflow-hidden"
-        >
+        <SlidePanel onClose={onClose}>
             <div className="flex items-center gap-6 px-4 pt-4 sm:pt-12 sm:px-8">
                 <button className="bg-gray-200/30 rounded-3xl sm:rounded-4xl p-3 sm:p-4 text-white hover:bg-purple-300/80 cursor-pointer transition-all" onClick={(onClose)}>
                     <IconChevronLeft stroke={3} size={24} className="sm:w-8 sm:h-8" />
@@ -269,7 +265,7 @@ export default function NotificationsPanel({ onClose }: Props) {
                     />
                 )}
             </AnimatePresence>
-        </motion.div>
+        </SlidePanel>
     );
 }
 

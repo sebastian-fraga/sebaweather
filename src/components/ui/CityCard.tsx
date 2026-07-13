@@ -67,7 +67,7 @@ export default function FavoriteCityCard({ city, onClick, onRemove, onEdit }: Fa
     return (
         <div
             onClick={onClick}
-            className="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-64 md:h-80 cursor-pointer group"
+            className="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-64 md:h-80 cursor-pointer transition-all group hover:ring-2 hover:ring-purple-500"
         >
             {backgroundImage ? (
                 <img

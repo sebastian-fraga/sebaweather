@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion'
 import { useTranslation } from "react-i18next";
 
+import "../styles/WelcomePage.css";
 import "../styles/backgrounds.css";
 
 function WelcomePage() {
@@ -27,14 +28,14 @@ function WelcomePage() {
                     alt="Imagen de inicio"
                     className="
                         w-55 sm:w-70 md:w-87.5 lg:w-105
-                        transition-all
+                        transition-all welcome-animation
                     "
                 />
 
                 <div className="flex flex-col items-center gap-4 sm:gap-6">
                     <h2 className="
                         font-medium text-white
-                        text-3xl sm:text-4xl md:text-5xl lg:text-6xl
+                        text-3xl sm:text-4xl md:text-5xl lg:text-6xl welcome-animation
                     ">
                         {t('welcome.title')}
                     </h2>
@@ -43,7 +44,7 @@ function WelcomePage() {
                         font-extralight text-gray-300
                         text-base sm:text-lg md:text-xl
                         max-w-xs sm:max-w-md md:max-w-lg
-                        leading-relaxed
+                        leading-relaxed welcome-animation
                     ">
                         {t('welcome.paragraph')}
                     </p>
@@ -54,7 +55,7 @@ function WelcomePage() {
                         localStorage.setItem("hasVisitedApp", "true");
                         navigate("/home");
                     }}
-                    className="bg-linear-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-2xl cursor-pointer transition-all active:scale-95 hover:brightness-110 px-10 py-3 sm:px-16 sm:py-4 md:px-24 md:py-5 text-base sm:text-lg md:text-xl"
+                    className="bg-linear-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-2xl cursor-pointer transition-all active:scale-95 hover:brightness-110 px-10 py-3 sm:px-16 sm:py-4 md:px-24 md:py-5 text-base sm:text-lg md:text-xl welcome-animation"
                 >
                     {t('welcome.button')}
                 </button>
