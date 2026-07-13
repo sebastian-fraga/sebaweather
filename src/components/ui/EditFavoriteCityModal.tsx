@@ -56,7 +56,7 @@ export default function EditFavoriteCityModal({
                     placeholder={t("locations.edit.placeholder")}
                 />
 
-                <button onClick={onClose} className="absolute top-3 right-3 sm:top-4 sm:right-5 hover:bg-white/30 rounded-full p-1.5 sm:p-2 transition-all cursor-pointer">
+                <button onClick={onClose} className="absolute top-3 right-3 sm:top-4 sm:right-5 hover:bg-white/30 rounded-full p-1.5 sm:p-2 transition-all cursor-pointer" aria-label={t("common.closeMenu")}>
                     <IconX size={20} className="sm:w-6 sm:h-6" />
                 </button>
 

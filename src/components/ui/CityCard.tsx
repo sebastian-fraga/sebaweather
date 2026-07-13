@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import { IconArrowUpRight, IconEdit, IconTrash, IconWind, IconPhoto } from '@tabler/icons-react';
 
@@ -18,6 +19,7 @@ type FavoriteCityCardProps = {
 };
 
 export default function FavoriteCityCard({ city, onClick, onRemove, onEdit }: FavoriteCityCardProps) {
+    const { t } = useTranslation()
     const { state } = useApp()
     const { preferences } = state
     const navigate = useNavigate()
@@ -102,6 +104,7 @@ export default function FavoriteCityCard({ city, onClick, onRemove, onEdit }: Fa
                     });
                 }}
                 className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-white/80 hover:bg-white rounded-full p-1.5 sm:p-2 transition-colors cursor-pointer"
+                aria-label={t("common.openCityWeather")}
             >
                 <IconArrowUpRight size={16} className="text-black sm:w-4.5 sm:h-4.5" />
             </button>
@@ -127,12 +130,14 @@ export default function FavoriteCityCard({ city, onClick, onRemove, onEdit }: Fa
                         e.stopPropagation();
                         onEdit(e, imageUrl);
                     }}
+                    aria-label={t("common.editCity")}
                     className="bg-gray-900/70 hover:bg-gray-900 rounded-full p-1.5 sm:p-2 transition-colors cursor-pointer"
                 >
                     <IconEdit size={14} className="text-white sm:w-4 sm:h-4" />
                 </button>
                 <button
                     onClick={onRemove}
+                    aria-label={t("common.removeFromFavorites")}
                     className="bg-red-500/80 hover:bg-red-500 rounded-full p-1.5 sm:p-2 transition-colors cursor-pointer"
                 >
                     <IconTrash size={14} className="text-white sm:w-4 sm:h-4" />

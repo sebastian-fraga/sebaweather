@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconX, IconCheck } from "@tabler/icons-react";
+import { useTranslation } from "react-i18next";
 
 interface SettingsModalProps<T extends string | boolean> {
     isOpen: boolean;
@@ -34,6 +35,7 @@ export default function SettingsModal<T extends string | boolean>({
         };
     }, [isOpen, onClose]);
 
+    const {t} = useTranslation()
     return (
         <AnimatePresence>
             {isOpen && (
@@ -59,6 +61,7 @@ export default function SettingsModal<T extends string | boolean>({
                                 transition-all hover:bg-gray-700/10 hover:text-red-600
                             "
                             onClick={onClose}
+                            aria-label={t("common.closeMenu")}
                         >
                             <IconX />
                         </button>

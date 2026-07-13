@@ -84,8 +84,8 @@ export default function NotificationTimePickerModal({
                             onClick={onClose}
                             className="
                                 absolute right-4 top-3 rounded-full p-1 cursor-pointer transition-colors
-                                hover:bg-black/10 hover:text-red-600
-                            "
+                                hover:bg-black/10 hover:text-red-600"
+                            aria-label={t("common.closeMenu")}
                         >
                             <IconX />
                         </button>

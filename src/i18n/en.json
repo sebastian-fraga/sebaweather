@@ -171,6 +171,12 @@
         "settings": "Settings"
     },
     "common": {
-        "backToSettings": "Back to settings"
+        "backToSettings": "Back to Settings",
+        "openCityWeather": "View city weather",
+        "editCity": "Edit city",
+        "removeFromFavorites": "Remove from favorites",
+        "closeMenu": "Close menu",
+        "back": "Go back",
+        "openOptions": "Open options"
     }
 }

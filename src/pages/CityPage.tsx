@@ -147,7 +147,7 @@ function CityPage() {
 
                 <div className="w-full flex justify-between px-4 sm:px-10 md:px-20 lg:px-32 xl:px-50 mt-4 sm:mt-10 md:mt-16 mb-6 sm:mb-12 text-white city-button-wrapper">
                     <button className="bg-gray-200/30 rounded-3xl sm:rounded-4xl p-3 sm:p-4" onClick={() => navigate(-1)}>
-                        <IconChevronLeft stroke={3} size={24} className="sm:w-8 sm:h-8" />
+                        <IconChevronLeft stroke={3} size={24} className="sm:w-8 sm:h-8" aria-label={t("common.back")} />
                     </button>
 
                     <div
@@ -158,6 +158,7 @@ function CityPage() {
                         <button
                             className="bg-gray-200/30 rounded-3xl sm:rounded-4xl p-3 sm:p-4"
                             onClick={() => setMenuOpen((prev) => !prev)}
+                            aria-label={t("common.openOptions")}
                         >
                             <IconDots
                                 stroke={3}

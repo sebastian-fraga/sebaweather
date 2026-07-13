@@ -157,7 +157,7 @@ export default function NotificationsPanel({ onClose }: Props) {
     return (
         <SlidePanel onClose={onClose}>
             <div className="flex items-center gap-6 px-4 pt-4 sm:pt-12 sm:px-8">
-                <button className="bg-gray-200/30 rounded-3xl sm:rounded-4xl p-3 sm:p-4 text-white hover:bg-purple-300/80 cursor-pointer transition-all" onClick={(onClose)}>
+                <button className="bg-gray-200/30 rounded-3xl sm:rounded-4xl p-3 sm:p-4 text-white hover:bg-purple-300/80 cursor-pointer transition-all" aria-label={t("common.backToSettings")} onClick={(onClose)}>
                     <IconChevronLeft stroke={3} size={24} className="sm:w-8 sm:h-8" />
                 </button>
                 <h2 className="text-xl sm:text-2xl font-semibold text-white">

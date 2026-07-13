@@ -171,6 +171,12 @@
         "settings": "Configuración"
     },
     "common": {
-        "backToSettings": "Volver a las opciones"
+        "backToSettings": "Volver a Configuración",
+        "openCityWeather": "Ver clima de la ciudad",
+        "editCity": "Editar ciudad",
+        "removeFromFavorites": "Eliminar de favoritos",
+        "closeMenu": "Cerrar menú",
+        "back": "Volver",
+        "openOptions": "Abrir opciones"
     }
 }
