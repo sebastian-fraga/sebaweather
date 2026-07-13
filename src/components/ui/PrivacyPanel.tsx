@@ -15,7 +15,7 @@ export default function PrivacyPanel({ onClose }: PrivacyPanelProps) {
         >
             <div className="flex flex-col items-start px-4 pt-4 sm:pt-12 sm:px-8 text-white max-w-3xl mx-auto overflow-y-auto scrollbar-hide">
                 <div className="flex items-center gap-6 mb-8">
-                    <button className="bg-gray-200/30 rounded-3xl sm:rounded-4xl p-3 sm:p-4 text-white hover:bg-purple-300/80 cursor-pointer transition-all" onClick={(onClose)}>
+                    <button className="bg-gray-200/30 rounded-3xl sm:rounded-4xl p-3 sm:p-4 text-white hover:bg-purple-300/80 cursor-pointer transition-all" aria-label={t("common.backToSettings")} onClick={onClose}>
                         <IconChevronLeft stroke={3} size={24} className="sm:w-8 sm:h-8" />
                     </button>
 

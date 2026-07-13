@@ -31,7 +31,7 @@ export default function SlidePanel({ children, onClose }: SlidePanelProps) {
         >
             <div
                 onPointerDown={(e) => dragControls.start(e)}
-                className="absolute inset-y-0 left-0 w-4 z-10 touch-none flex items-center justify-center cursor-grab active:cursor-grabbing"
+                className="absolute inset-y-0 left-0.5 w-4 z-10 touch-none flex items-center justify-center cursor-grab active:cursor-grabbing"
             >
                 <div className="w-1 h-22 rounded-full bg-white/20" />
             </div>

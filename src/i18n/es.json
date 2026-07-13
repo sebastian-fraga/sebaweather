@@ -169,5 +169,8 @@
         "search": "Buscar",
         "locations": "Ubicaciones",
         "settings": "Configuración"
+    },
+    "common": {
+        "backToSettings": "Volver a las opciones"
     }
 }

@@ -169,5 +169,8 @@
         "search": "Search",
         "locations": "Locations",
         "settings": "Settings"
+    },
+    "common": {
+        "backToSettings": "Back to settings"
     }
 }
