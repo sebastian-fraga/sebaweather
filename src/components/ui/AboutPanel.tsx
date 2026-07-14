@@ -100,7 +100,6 @@ export default function AboutPanel({ onClose }: AboutPanelProps) {
                                 <p className="text-sm text-white/70">
                                     {t("about.creditsIcons")}{' '}
                                     <a
-
                                         href="https://tabler.io/icons"
                                         target="_blank"
                                         rel="noopener noreferrer"

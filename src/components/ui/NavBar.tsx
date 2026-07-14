@@ -1,9 +1,10 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { IconSearch, IconMapPin, IconSettings } from "@tabler/icons-react";
+import Tooltip from "./Tooltip";
 
 const navItems = [
     { to: "/home", icon: <IconSearch />, labelKey: "navbar.search" },
@@ -25,42 +26,41 @@ function NavBar() {
                     const isHovered = hovered === to;
 
                     return (
-                        <NavLink
-                            key={to}
-                            to={to}
-                            className="group relative rounded-full p-2 sm:p-3 md:p-4 transition-all"
-                            onMouseEnter={() => setHovered(to)}
-                            onMouseLeave={() => setHovered(null)}
-                        >
-                            {isActive && (
-                                <motion.div
-                                    layoutId="nav-active-pill"
-                                    className="absolute inset-0 bg-gray-50 rounded-full"
-                                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                                />
-                            )}
+                        <Tooltip key={to} label={t(labelKey)} position="top">
+                            <NavLink
+                                to={to}
+                                className="group relative rounded-full p-2 sm:p-3 md:p-4 transition-all"
+                                onMouseEnter={() => setHovered(to)}
+                                onMouseLeave={() => setHovered(null)}
+                            >
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="nav-active-pill"
+                                        className="absolute inset-0 bg-gray-50 rounded-full"
+                                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                    />
+                                )}
 
-                            {!isActive && isHovered && (
-                                <motion.div
-                                    className="absolute inset-0 bg-white/10 rounded-full"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.15 }}
-                                />
-                            )}
+                                <AnimatePresence>
+                                    {!isActive && isHovered && (
+                                        <motion.div
+                                            key="hover-bg"
+                                            className="absolute inset-0 bg-white/10 rounded-full"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: 0.15 }}
+                                        />
+                                    )}
+                                </AnimatePresence>
 
-                            <span className={`relative z-10 ${isActive ? "text-black" : "text-gray-400"}`}>
-                                {icon}
-                            </span>
-
-                            <span className="hidden sm:block pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 rounded-lg bg-white px-3 py-1 text-sm text-black opacity-0 transition-opacity duration-200 group-hover:opacity-100 z-20">
-                                {t(labelKey)}
-                            </span>
-                        </NavLink>
+                                <span className={`relative z-10 ${isActive ? "text-black" : "text-gray-400"}`}>
+                                    {icon}
+                                </span>
+                            </NavLink>
+                        </Tooltip>
                     );
                 })}
-
             </div>
         </nav>
     );
