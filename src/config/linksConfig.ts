@@ -15,12 +15,12 @@ export interface LinkField {
 
 export const linksConfig: LinkField[] = [
     {
-        key: "privacy",
-        icon: IconShieldLock,
-    },
-    {
         key: "about",
         icon: IconInfoCircle,
+    },
+    {
+        key: "privacy",
+        icon: IconShieldLock,
     },
     {
         key: "github",

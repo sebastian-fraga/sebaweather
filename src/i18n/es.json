@@ -95,6 +95,23 @@
             "label": "Donar"
         }
     },
+    "about": {
+        "title": "Acerca de",
+        "version": "Versión",
+        "contact": "Contacto",
+        "builtWith": "Hecho con",
+        "credits": "Créditos",
+        "creditsWeather": "Datos del clima provistos por",
+        "creditsAnimations": "Animaciones creadas con",
+        "creditsIcons": "Iconos provistos por",
+        "creditsLottie": "Ilustración del header animada con",
+        "changelog": {
+            "title": "Changelog",
+            "v1_0_0": {
+                "item1": "Versión de lanzamiento de SebaWeather"
+            }
+        }
+    },
     "privacy": {
         "title": "Política de privacidad",
         "lastUpdate": {
