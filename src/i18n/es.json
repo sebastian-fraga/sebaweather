@@ -20,7 +20,10 @@
         "noForecast": "No se pudo cargar el pronóstico.",
         "removeFavorite": "Quitar de favoritos",
         "addFavorite": "Añadir a favoritos",
-        "loading": "Cargando clima..."
+        "loading": "Cargando clima...",
+        "open": "Abrir",
+        "edit": "Editar",
+        "delete": "Eliminar"
     },
     "locations": {
         "title": "Ubicaciones guardadas",
