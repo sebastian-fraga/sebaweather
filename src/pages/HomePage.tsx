@@ -71,7 +71,7 @@ function HomePage() {
                         <input
                             ref={inputRef}
                             type="search"
-                            className="bg-white w-full rounded-2xl py-3 sm:py-4 md:py-5 pl-14 sm:pl-16 md:pl-18 pr-4 sm:pr-6 text-lg sm:text-2xl md:text-3xl font-semibold placeholder:text-gray-400 shadow-lg shadow-purple-950/20 focus:outline-none focus:ring-4 focus:ring-purple-400/80 transition-shadow duration-200"
+                            className="bg-white w-full rounded-2xl py-3 sm:py-4 md:py-5 pl-14 sm:pl-16 md:pl-18 pr-4 sm:pr-6 text-lg sm:text-2xl md:text-3xl font-semibold placeholder:text-gray-400/60 shadow-lg shadow-purple-950/20 focus:outline-none focus:ring-4 focus:ring-purple-400/80 transition-shadow duration-200"
                             placeholder={t("home.search.placeholder")}
                             value={query}
                             onFocus={() => setIsFocused(true)}
