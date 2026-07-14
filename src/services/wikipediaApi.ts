@@ -5,10 +5,11 @@ export async function getCityImage(cityName: string, width = 800): Promise<strin
                 action: "query",
                 format: "json",
                 origin: "*",
-                prop: "pageimages",
+                prop: "pageimages|coordinates|pageprops",
                 piprop: "thumbnail",
                 pithumbsize: String(width),
                 titles: cityName,
+                redirects: "1",
             });
 
             const res = await fetch(
@@ -20,7 +21,16 @@ export async function getCityImage(cityName: string, width = 800): Promise<strin
             const pages = data.query?.pages;
             if (!pages) return null;
 
-            const page = Object.values(pages)[0] as { thumbnail?: { source: string } };
+            const page = Object.values(pages)[0] as {
+                thumbnail?: { source: string };
+                coordinates?: { lat: number; lon: number }[];
+                pageprops?: { disambiguation?: string };
+            };
+
+            if (!page.coordinates || page.coordinates.length === 0) return null;
+
+            if (page.pageprops?.disambiguation) return null;
+
             return page.thumbnail?.source ?? null;
         } catch {
             return null;
