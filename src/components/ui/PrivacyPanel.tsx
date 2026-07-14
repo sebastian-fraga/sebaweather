@@ -219,7 +219,7 @@ export default function PrivacyPanel({ onClose }: PrivacyPanelProps) {
                         </p>
                     </div>
                 </div>
-            </div >
+            </div>
         </SlidePanel >
     );
 }
