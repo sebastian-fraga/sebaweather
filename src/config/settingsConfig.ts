@@ -12,41 +12,35 @@ export type SettingField =
         key: "temperature";
         icon: Icon;
         type: "select";
-        wip?: boolean;
         options: { value: "celsius" | "fahrenheit" }[];
     }
     | {
         key: "wind";
         icon: Icon;
         type: "select";
-        wip?: boolean;
         options: { value: "kph" | "mph" }[];
     }
     | {
         key: "language";
         icon: Icon;
         type: "select";
-        wip?: boolean;
         options: { value: "es" | "en" }[];
     }
     | {
         key: "notificationTime";
         icon: Icon;
         type: "time";
-        wip?: boolean;
     }
     | {
         key: "notificationsEnabled";
         icon: Icon;
         type: "navigate";
-        wip?: boolean;
         hasDescription?: boolean;
     }
     | {
         key: "clearFavorites";
         icon: Icon;
         type: "action";
-        wip?: boolean;
         destructive?: boolean;
         hasDescription?: boolean;
     };
@@ -83,5 +77,4 @@ export const settingsConfig: SettingField[] = [
         destructive: true,
         hasDescription: true,
     },
-
 ];
