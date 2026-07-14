@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 import { IconPlus } from '@tabler/icons-react';
@@ -35,6 +35,7 @@ function LocationsPage() {
                     </h2>
 
                     <div className="flex flex-col gap-6 w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-4xl mx-auto">
+                        <AnimatePresence mode="popLayout">
                         {state.favoriteCities.map((city) => (
                             <CityCard
                                 key={city.id}
@@ -52,6 +53,7 @@ function LocationsPage() {
                                 }}
                             />
                         ))}
+                        </AnimatePresence>
                         {editingCity && (
                             <EditFavoriteCityModal
                                 city={editingCity}
