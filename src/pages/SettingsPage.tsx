@@ -90,7 +90,6 @@ export default function SettingsPage() {
                                     <div>
                                         <p className={`font-medium ${field.type === "action" && field.destructive ? "text-red-100" : "text-white"}`}>
                                             {t(`settings.${field.key}.label`)}
-                                            {field.wip ? " 🚧" : ""}
                                         </p>
                                         {"hasDescription" in field && field.hasDescription && (
                                             <p className="text-sm text-white/80">
@@ -101,7 +100,7 @@ export default function SettingsPage() {
                                 </div>
 
                                 {field.type === "navigate" && (
-                                    <IconChevronRight size={20} className="text-white/80" />
+                                    <IconChevronRight size={18} className="text-white/80" />
                                 )}
 
                                 {field.type === "select" && (
