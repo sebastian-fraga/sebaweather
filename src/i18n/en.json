@@ -108,7 +108,10 @@
         "changelog": {
             "title": "Changelog",
             "v1_0_0": {
-                "item1": "Initial release of SebaWeather"
+                "item1": "Initial release of SebaWeather."
+            },
+            "v1_0_1": {
+                "item1": "Fixed a visual issue that displayed a white bar at the bottom of pages on mobile devices."
             }
         }
     },

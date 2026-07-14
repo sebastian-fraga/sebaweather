@@ -108,7 +108,10 @@
         "changelog": {
             "title": "Changelog",
             "v1_0_0": {
-                "item1": "Versión de lanzamiento de SebaWeather"
+                "item1": "Versión de lanzamiento de SebaWeather."
+            },
+            "v1_0_1": {
+                "item1": "Se corrigió un problema visual que mostraba una barra blanca en la parte inferior de las páginas en dispositivos móviles."
             }
         }
     },

@@ -4,7 +4,7 @@ import { IconChevronLeft, IconMail, IconExternalLink } from "@tabler/icons-react
 
 import SlidePanel from "../layout/SlidePanel";
 
-import { changelog } from "@/data/changelog";
+import { changelog, latestVersion } from "@/data/changelog";
 
 interface AboutPanelProps {
     onClose: () => void;
@@ -38,7 +38,9 @@ export default function AboutPanel({ onClose }: AboutPanelProps) {
                         <img src="/assets/images/outlined-icon.webp" alt="Icono de SebaWeather" className="w-full h-full p-4 object-contain" />
                     </div>
                     <h3 className="font-semibold text-xl text-white">SebaWeather</h3>
-                    <p className="text-indigo-300 font-medium text-sm">{t("about.version")} 1.0.0</p>
+                    <p className="text-indigo-300 font-medium text-sm">
+                        {t("about.version")} {latestVersion}
+                    </p>
 
                     <div className="mt-4 w-full">
 
