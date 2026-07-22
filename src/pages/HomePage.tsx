@@ -9,6 +9,7 @@ import { useSearch } from '../hooks/useSearch';
 import { useSearchHistory } from '../hooks/useSearchHistory';
 import type { City } from '../types/weather';
 import { getFlagUrl } from '../utils/flags';
+import { createSlug } from '../utils/slug'
 
 import NavBar from "../components/ui/NavBar";
 
@@ -23,15 +24,6 @@ function HomePage() {
     const [query, setQuery] = useState("");
     const inputRef = useRef<HTMLInputElement>(null)
     const [isFocused, setIsFocused] = useState(false);
-
-    const createSlug = (name: string) => {
-        return name
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .replace(/\s+/g, "-");
-    };
-
 
     const goToCity = (city: City) => {
         const slug = createSlug(city.name);

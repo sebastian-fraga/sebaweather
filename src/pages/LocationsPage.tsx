@@ -8,6 +8,7 @@ import { IconPlus } from '@tabler/icons-react';
 import { MAX_FAVORITES } from '@/constants/favorites';
 import { useApp } from '../context/AppContext';
 import type { FavoriteCity } from "../types/weather";
+import { createSlug } from '../utils/slug';
 
 import NavBar from '../components/ui/NavBar';
 import CityCard from '../components/ui/CityCard';
@@ -45,7 +46,7 @@ function LocationsPage() {
                                     key={city.id}
                                     city={city}
                                     onClick={() =>
-                                        navigate(`/home/city/${city.lat}/${city.lon}`, {
+                                        navigate(`/home/city/${createSlug(city.name)}/${city.lat}/${city.lon}`, {
                                             state: city,
                                         })
                                     }
