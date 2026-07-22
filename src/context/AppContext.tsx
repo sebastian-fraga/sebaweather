@@ -93,12 +93,17 @@ function appReducer(state: AppState, action: AppAction): AppState {
             };
 
         case "SET_PREFERENCE":
+
             return {
                 ...state,
-                preferences: { ...state.preferences, [action.payload.key]: action.payload.value },
+                preferences: {
+                    ...state.preferences,
+                    [action.payload.key]: action.payload.value,
+                },
             };
 
         case "HYDRATE":
+            console.log("HYDRATE", action.payload);
             return action.payload;
 
         default:
@@ -113,15 +118,23 @@ const AppContext = createContext<{
 
 export function AppProvider({ children }: { children: ReactNode }) {
     const init = (): AppState => {
+
         try {
             const saved = localStorage.getItem(STORAGE_KEY);
+
             if (!saved) return initialState;
+
             const parsed = JSON.parse(saved);
-            return {
+
+            const result = {
                 ...initialState,
                 ...parsed,
-                preferences: { ...initialState.preferences, ...parsed.preferences },
+                preferences: {
+                    ...initialState.preferences,
+                    ...parsed.preferences,
+                },
             };
+            return result;
         } catch {
             return initialState;
         }
@@ -138,6 +151,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }, [state]);
 
     useEffect(() => {
+
         if (i18n.language !== state.preferences.language) {
             i18n.changeLanguage(state.preferences.language);
         }
