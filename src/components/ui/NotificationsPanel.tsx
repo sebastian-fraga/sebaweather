@@ -34,7 +34,7 @@ export default function NotificationsPanel({ onClose }: Props) {
         message: string;
     } | null>(null);
 
-    const [timeModalCityId, setTimeModalCityId] = useState<number | null>(null);
+    const [timeModalCityId, setTimeModalCityId] = useState<string | null>(null);
 
     const showStatusAlert = (type: "success" | "error", title: string, message: string) => {
         setStatusAlert({ type, title, message });

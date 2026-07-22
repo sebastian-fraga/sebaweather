@@ -22,7 +22,7 @@ function LocationsPage() {
     const [editingImage, setEditingImage] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    const handleRemove = (e: React.MouseEvent, id: number) => {
+    const handleRemove = (e: React.MouseEvent, id: string) => {
         e.stopPropagation();
         dispatch({ type: "REMOVE_FAVORITE", payload: { id } });
     };
