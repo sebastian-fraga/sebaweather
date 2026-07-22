@@ -124,6 +124,16 @@ function CityPage() {
         return <p className="text-white p-10">No se pudo cargar el clima.</p>;
     }
 
+    const currentCity: City = city ?? {
+        id: `${lat}-${lon}`,
+        name: formatCityName(name ?? weather.location.name),
+        region: weather.location.region,
+        country: weather.location.country,
+        lat: Number(lat),
+        lon: Number(lon),
+        url: "",
+    };
+
     const forecastDays = weather.forecast.forecastday;
     const todayForecast = forecastDays[0];
 
@@ -145,24 +155,26 @@ function CityPage() {
         return <p>{t("city.noForecast")}</p>;
     }
 
-    const isFavorite = city ? state.favoriteCities.some((c) => c.id === city.id) : false;
+    const isFavorite = currentCity
+        ? state.favoriteCities.some((c) => c.id === currentCity.id)
+        : false;
 
     const MAX_FAVORITES = 5;
 
     const toggleFavorite = () => {
-        if (!city) return;
+        if (!currentCity) return;
 
         if (isFavorite) {
             dispatch({
                 type: "REMOVE_FAVORITE",
-                payload: { id: city.id },
+                payload: { id: currentCity.id },
             });
 
             showNotification({
                 type: "success",
                 title: t("city.favoriteRemovedTitle"),
                 message: t("city.favoriteRemovedMessage", {
-                    city: city.name,
+                    city: currentCity.name,
                 }),
             });
 
@@ -181,14 +193,14 @@ function CityPage() {
 
             dispatch({
                 type: "ADD_FAVORITE",
-                payload: city,
+                payload: currentCity,
             });
 
             showNotification({
                 type: "success",
                 title: t("city.favoriteAddedTitle"),
                 message: t("city.favoriteAddedMessage", {
-                    city: city.name,
+                    city: currentCity.name,
                 }),
             });
         }
@@ -285,18 +297,18 @@ function CityPage() {
                 <main className="text-white flex flex-col justify-center items-center city-weather px-4 mb-20">
                     <div className='flex items-center gap-4 sm:gap-7 mt-8 sm:mt-16'>
                         <img
-                            src={getFlagUrl(city?.country ?? weather.location.country)}
-                            alt={city?.country ?? weather.location.country}
+                            src={getFlagUrl(currentCity.country)}
+                            alt={currentCity.country}
                             className="rounded-md w-12 h-8 sm:w-16 sm:h-10"
                         />
 
                         <div className="flex items-center gap-2 sm:items-center text-2xl sm:text-3xl md:text-4xl">
                             <h2 className="font-medium">
-                                {city?.name ?? formatCityName(name ?? weather.location.name)},
+                                {currentCity.name},
                             </h2>
 
                             <p className="font-light text-slate-100/80">
-                                {city?.region ?? weather.location.region}
+                                {currentCity.region}
                             </p>
                         </div>
                     </div>

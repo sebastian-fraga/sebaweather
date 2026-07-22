@@ -65,11 +65,11 @@ export type FavoriteCity = City & {
 };
 
 export interface City {
-    id: number;
+    id: string;
     name: string;
     region: string;
     country: string;
     lat: number;
     lon: number;
-    url: string;
+    url?: string;
 }

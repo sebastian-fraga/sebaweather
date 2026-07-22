@@ -31,11 +31,11 @@ type SetPreferenceAction = {
 
 type AppAction =
     | { type: "ADD_FAVORITE"; payload: City }
-    | { type: "REMOVE_FAVORITE"; payload: { id: number } }
+    | { type: "REMOVE_FAVORITE"; payload: { id: string } }
     | {
         type: "UPDATE_FAVORITE";
         payload: {
-            id: number;
+            id: string;
             data: Partial<FavoriteCity>;
         };
     }
