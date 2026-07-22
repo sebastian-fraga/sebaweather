@@ -39,6 +39,15 @@ function CityPage() {
         }[]
     >([]);
 
+    function formatCityName(slug: string) {
+        return slug
+            .split("-")
+            .map(word =>
+                word.charAt(0).toUpperCase() + word.slice(1)
+            )
+            .join(" ");
+    }
+
     const showNotification = (
         notification: Omit<typeof notifications[number], "id">
     ) => {
@@ -283,7 +292,7 @@ function CityPage() {
 
                         <div className="flex items-center gap-2 sm:items-center text-2xl sm:text-3xl md:text-4xl">
                             <h2 className="font-medium">
-                                {city?.name ?? name ?? weather.location.name},
+                                {city?.name ?? formatCityName(name ?? weather.location.name)},
                             </h2>
 
                             <p className="font-light text-slate-100/80">

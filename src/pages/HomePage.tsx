@@ -24,9 +24,20 @@ function HomePage() {
     const inputRef = useRef<HTMLInputElement>(null)
     const [isFocused, setIsFocused] = useState(false);
 
+    const createSlug = (name: string) => {
+        return name
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/\s+/g, "-");
+    };
+
+
     const goToCity = (city: City) => {
+        const slug = createSlug(city.name);
+
         navigate(
-            `/home/city/${encodeURIComponent(city.name.toLowerCase())}/${city.lat}/${city.lon}`,
+            `/home/city/${slug}/${city.lat}/${city.lon}`,
             { state: city }
         );
     };
