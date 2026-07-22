@@ -10,6 +10,7 @@ import CityPage from "./pages/CityPage";
 import LocationsPage from "./pages/LocationsPage";
 import SettingsPage from "./pages/SettingsPage";
 import AboutPage from "./pages/AboutPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 import Header from "./components/ui/Header";
 import AnimatedBackground from "./components/layout/AnimatedBackground";
@@ -37,6 +38,7 @@ function AnimatedRoutes() {
           <Route path="/locations" element={<LocationsPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
       </AnimatePresence>
     </AnimatedBackground>

@@ -188,6 +188,11 @@
             "paragraph": "If you have any further questions about this Privacy Policy, you can send an email to"
         }
     },
+    "notFound": {
+        "title": "ERROR 404",
+        "description": "The requested page could not be found",
+        "button": "Go Back"
+    },
     "navbar": {
         "search": "Search",
         "locations": "Locations",

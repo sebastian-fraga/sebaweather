@@ -188,6 +188,11 @@
             "paragraph": "Si tienes más dudas o preguntas sobre esta Política de Privacidad, puedes enviar un correo electrónico a"
         }
     },
+    "notFound": {
+        "title": "ERROR 404",
+        "description": "No se encontró la página solicitada",
+        "button": "Volver"
+    },
     "navbar": {
         "search": "Buscar",
         "locations": "Ubicaciones",

@@ -11,17 +11,25 @@ i18next
     .init({
         resources: {
             es: { translation: es },
-            en: { translation: en }
+            en: { translation: en },
         },
-        fallbackLng: "es",
+
         supportedLngs: ["es", "en"],
+
+        load: "languageOnly",
+
+        fallbackLng: "es",
+
         detection: {
             order: ["navigator"],
             caches: [],
         },
+
         interpolation: {
-            escapeValue: false
-        }
+            escapeValue: false,
+        },
+
+        debug: true,
     });
 
 export default i18next;
