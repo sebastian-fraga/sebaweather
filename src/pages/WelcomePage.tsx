@@ -16,20 +16,12 @@ function WelcomePage() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
         >
-            <main className="
-                min-h-[90vh]
-                flex flex-col items-center justify-center text-center
-                gap-10 sm:gap-14 lg:gap-20
-                px-6
-            ">
+            <main className="min-h-[90vh] flex flex-col items-center justify-center text-center gap-10 sm:gap-14 lg:gap-20 px-6">
 
                 <img
                     src="/assets/images/welcome-hero.webp"
                     alt="Imagen de inicio"
-                    className="
-                        w-55 sm:w-70 md:w-87.5 lg:w-105
-                        transition-all welcome-animation
-                    "
+                    className="w-55 sm:w-70 md:w-87.5 lg:w-105 transition-all welcome-animation"
                 />
 
                 <div className="flex flex-col items-center gap-4 sm:gap-6">
