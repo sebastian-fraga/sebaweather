@@ -23,11 +23,19 @@ function HomePage() {
     const [query, setQuery] = useState("");
     const inputRef = useRef<HTMLInputElement>(null)
     const [isFocused, setIsFocused] = useState(false);
-    
+
+    const goToCity = (city: City) => {
+        navigate(
+            `/home/city/${encodeURIComponent(city.name.toLowerCase())}/${city.lat}/${city.lon}`,
+            { state: city }
+        );
+    };
+
     const handleCityClick = (city: City) => {
         addToHistory(city);
-        navigate(`/home/city/${city.lat}/${city.lon}`, { state: city });
+        goToCity(city);
     };
+
 
     const handleClear = () => {
         setQuery("");
@@ -205,7 +213,7 @@ function HomePage() {
                                     {history.map((city: City) => (
                                         <div
                                             key={city.id}
-                                            onClick={() => handleCityClick(city)}
+                                            onClick={() => goToCity(city)}
                                             className="group city-search flex items-center justify-between pl-2 sm:pl-4 md:pl-6 pr-4 sm:pr-6 md:pr-8 py-3 border-t-2 border-gray-500/10 hover:bg-gray-500/10 transition-colors cursor-pointer"
                                         >
                                             <div className="flex items-center gap-3 sm:gap-4 min-w-0">

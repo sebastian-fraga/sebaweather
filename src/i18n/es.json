@@ -23,7 +23,13 @@
         "loading": "Cargando clima...",
         "open": "Abrir",
         "edit": "Editar",
-        "delete": "Eliminar"
+        "delete": "Eliminar",
+        "favoriteAddedTitle": "Agregada",
+        "favoriteAddedMessage": "{{city}} se agregó a favoritos.",
+        "favoriteRemovedTitle": "Eliminada",
+        "favoriteRemovedMessage": "{{city}} se eliminó de favoritos.",
+        "favoriteLimitTitle": "Límite alcanzado",
+        "favoriteLimitMessage": "Solo puedes guardar {{max}} ciudades favoritas."
     },
     "locations": {
         "title": "Ubicaciones guardadas",

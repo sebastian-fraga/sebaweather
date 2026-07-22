@@ -10,6 +10,8 @@ import type { City, ForecastResponse } from "../types/weather";
 import { getFlagUrl } from '../utils/flags';
 import { useApp } from '../context/AppContext';
 
+
+import { NotificationToggleStatus } from "../components/ui/NotificationToggleStatus";
 import TemperatureGauge from '../components/ui/TemperatureGauge';
 import NavBar from '../components/ui/NavBar';
 
@@ -20,13 +22,39 @@ function CityPage() {
     const { t } = useTranslation()
     const { state, dispatch } = useApp();
     const language = state.preferences.language;
-    const { lat, lon } = useParams();
+    const { name, lat, lon } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
+    const canGoBack = location.key !== "default";
     const { preferences } = state;
 
     const city = (location.state as City | null) ?? null;
 
+    const [notifications, setNotifications] = useState<
+        {
+            id: number;
+            type: "success" | "error";
+            title: string;
+            message: string;
+        }[]
+    >([]);
+
+    const showNotification = (
+        notification: Omit<typeof notifications[number], "id">
+    ) => {
+        const id = Date.now();
+
+        setNotifications(prev => [
+            ...prev,
+            { id, ...notification }
+        ]);
+
+        setTimeout(() => {
+            setNotifications(prev =>
+                prev.filter(n => n.id !== id)
+            );
+        }, 1500);
+    };
 
     const [weather, setWeather] = useState<ForecastResponse | null>(null);
     const [loading, setLoading] = useState(true);
@@ -110,6 +138,8 @@ function CityPage() {
 
     const isFavorite = city ? state.favoriteCities.some((c) => c.id === city.id) : false;
 
+    const MAX_FAVORITES = 5;
+
     const toggleFavorite = () => {
         if (!city) return;
 
@@ -118,10 +148,39 @@ function CityPage() {
                 type: "REMOVE_FAVORITE",
                 payload: { id: city.id },
             });
+
+            showNotification({
+                type: "success",
+                title: t("city.favoriteRemovedTitle"),
+                message: t("city.favoriteRemovedMessage", {
+                    city: city.name,
+                }),
+            });
+
         } else {
+            if (state.favoriteCities.length >= MAX_FAVORITES) {
+                showNotification({
+                    type: "error",
+                    title: t("city.favoriteLimitTitle"),
+                    message: t("city.favoriteLimitMessage", {
+                        max: MAX_FAVORITES,
+                    }),
+                });
+
+                return;
+            }
+
             dispatch({
                 type: "ADD_FAVORITE",
                 payload: city,
+            });
+
+            showNotification({
+                type: "success",
+                title: t("city.favoriteAddedTitle"),
+                message: t("city.favoriteAddedMessage", {
+                    city: city.name,
+                }),
             });
         }
     };
@@ -146,8 +205,23 @@ function CityPage() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }}>
 
                 <div className="w-full flex justify-between px-4 sm:px-10 md:px-20 lg:px-32 xl:px-50 mt-4 sm:mt-10 md:mt-16 mb-6 sm:mb-12 text-white city-button-wrapper">
-                    <button className="bg-gray-200/30 rounded-3xl sm:rounded-4xl p-3 sm:p-4" onClick={() => navigate(-1)}>
-                        <IconChevronLeft stroke={3} size={24} className="sm:w-8 sm:h-8" aria-label={t("common.back")} />
+                    <button
+                        className="bg-gray-200/30 rounded-3xl sm:rounded-4xl p-3 sm:p-4"
+
+                        onClick={() => {
+                            if (canGoBack) {
+                                navigate(-1);
+                            } else {
+                                navigate("/home");
+                            }
+                        }}
+                    >
+                        <IconChevronLeft
+                            stroke={3}
+                            size={24}
+                            className="sm:w-8 sm:h-8"
+                            aria-label={t("common.back")}
+                        />
                     </button>
 
                     <div
@@ -209,7 +283,7 @@ function CityPage() {
 
                         <div className="flex items-center gap-2 sm:items-center text-2xl sm:text-3xl md:text-4xl">
                             <h2 className="font-medium">
-                                {city?.name ?? weather.location.name},
+                                {city?.name ?? name ?? weather.location.name},
                             </h2>
 
                             <p className="font-light text-slate-100/80">
@@ -284,7 +358,19 @@ function CityPage() {
                         })}
                     </div>
                 </main>
+
             </motion.div>
+            <AnimatePresence>
+                {notifications.map((notification, index) => (
+                    <NotificationToggleStatus
+                        key={notification.id}
+                        type={notification.type}
+                        title={notification.title}
+                        message={notification.message}
+                        index={index}
+                    />
+                ))}
+            </AnimatePresence>
             <NavBar />
         </>
     );

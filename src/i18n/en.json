@@ -23,7 +23,13 @@
         "loading": "Loading weather...",
         "open": "Open",
         "edit": "Edit",
-        "delete": "Remove"
+        "delete": "Remove",
+        "favoriteAddedTitle": "Added",
+        "favoriteAddedMessage": "{{city}} was added to favorites.",
+        "favoriteRemovedTitle": "Removed",
+        "favoriteRemovedMessage": "{{city}} was removed from favorites.",
+        "favoriteLimitTitle": "Limit reached",
+        "favoriteLimitMessage": "You can only save {{max}} favorite cities."
     },
     "locations": {
         "title": "Saved locations",

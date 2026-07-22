@@ -1,6 +1,7 @@
 import i18n from "../i18n";
 
 import type { FavoriteCity } from "../types/weather";
+import { MAX_FAVORITES } from "@/constants/favorites";
 
 import {
     createContext,
@@ -57,16 +58,18 @@ const STORAGE_KEY = "sebaweather:app-state";
 
 function appReducer(state: AppState, action: AppAction): AppState {
     switch (action.type) {
-        case "ADD_FAVORITE": {
-            const exists = state.favoriteCities.some(
-                (c) => c.id === action.payload.id
-            );
-            if (exists) return state;
+        case "ADD_FAVORITE":
+            if (state.favoriteCities.length >= MAX_FAVORITES) {
+                return state;
+            }
+
             return {
                 ...state,
-                favoriteCities: [...state.favoriteCities, action.payload],
+                favoriteCities: [
+                    ...state.favoriteCities,
+                    action.payload
+                ]
             };
-        }
 
         case "REMOVE_FAVORITE":
             return {

@@ -34,7 +34,14 @@ function AnimatedRoutes() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/home/city/:lat/:lon" element={<CityPage />} />
+          <Route
+            path="/home/city/:lat/:lon"
+            element={<CityPage />}
+          />
+          <Route
+            path="/home/city/:name/:lat/:lon"
+            element={<CityPage />}
+          />
           <Route path="/locations" element={<LocationsPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/about" element={<AboutPage />} />
