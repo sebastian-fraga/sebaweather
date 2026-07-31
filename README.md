@@ -76,7 +76,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE.md)
 
 ## ☕ Support
 
-If you enjoy SebaWeather and want to support the project, consider buying me a coffee. Your support helps cover hosting costs and future improvements :)
+If you enjoy SebaWeather and want to support the project, consider buying me a coffee. Your support helps cover hosting costs and future improvements
 
 <a href="https://ko-fi.com/sebastianfraga">
   <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on Ko-fi">
