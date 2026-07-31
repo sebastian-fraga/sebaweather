@@ -78,12 +78,12 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE.md)
 
 If you enjoy Lynk and want to support the project, consider buying me a coffee. Your support helps cover hosting costs and future improvements :)
 
-<a href="https://ko-fi.com/sebastianfraga" target="_blank" rel="noopener">
+<a href="https://ko-fi.com/sebastianfraga">
   <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on Ko-fi">
 </a>
 
 <br>
 
-<a href="https://cafecito.app/sebastianfraga" target="_blank" rel="noopener">
+<a href="https://cafecito.app/sebastianfraga">
   <img src="https://cdn.cafecito.app/imgs/buttons/button_1.png" alt="Support me on Cafecito">
 </a>
